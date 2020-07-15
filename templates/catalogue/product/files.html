@@ -1,0 +1,49 @@
+{% load i18n %}
+
+{% load static %}
+<p class="h3 mt32">{% trans 'Файлы' %}</p>
+<div class="files">
+    <!-- Documents -->
+    <div class="documents">
+      <p class="h4 mt32">{% trans 'Документы' %}:</p>
+      <ul class="list">
+        {% if product.documents.all|length %}
+            {% for item in product.documents.all %}
+            <li>
+                <a href="{{ item.file.url }}">
+                  <div class="file" style="background: url(/static/img/ext/{{ item.ext }}.png)">
+                      <span class="title">{{ item.name }}</span>
+                  </div>
+                </a>
+            </li>
+            {% endfor %}
+        {% else %}
+            <p class="grey h4">{% trans 'Нет документов' %}</p>
+            <a class="btn bg-silver cl3 cl-s-12" href="/admin/catalogue/product/{{ product.pk }}/change/#documents-group">Добавить</a>
+        {% endif %}
+        
+      </ul>
+    </div>
+    
+    <!-- Presentations -->
+    <div class="documents">
+        <p class="h4 mt32">{% trans 'Сертификаты' %}:</p>
+        <ul class="list">
+        {% if product.certificates.all|length %}
+          {% for item in product.certificates.all %}
+            <li>
+              <a href="{{ item.file.url }}">
+                <div class="file" style="background: url(/static/img/ext/{{ item.ext }}.png)">
+                    <span class="title">{{ item.name }}</span>
+                </div>
+              </a>
+  
+            </li>
+          {% endfor %}
+        {% else %}
+            <p class="grey h4">{% trans 'Нет сертификатов' %}</p>
+        {% endif %}
+        
+        </ul>
+      </div>
+  </div>

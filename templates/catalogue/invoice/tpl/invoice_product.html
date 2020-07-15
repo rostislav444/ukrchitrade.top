@@ -1,0 +1,30 @@
+{% verbatim %}
+<template id="invoice_product_tpl">
+<li class="product product-{{ product.id }} invoice-product-{{ product.id }} invoice-product" data-id="{{ product.id }}" >
+    <span class="close delete" data-invoice_id="{{ invoice.id }}" data-parent="invoice-product-{{ product.id }}" data-id="{{ product.id }}" onclick=InvoiceProductDelete(this)>
+        <img src="/static/img/close.png" alt="x">
+    </span>
+    <div class="invoice_product_image">
+        <input type="checkbox" name="" data-id="product-{{ product.id }}-checkbox" class="product-checkbox product-{{ product.id }}-checkbox">
+        <img width=64 height="64" style="object-fit: contain;" src="{{ product.image }}" alt="">
+    </div>
+    
+    <div>
+        <p class="h6 title">{{ product.code }}, {{ product.name }}</p>
+        <p>
+            <input width="360" 
+                class="form-control invoice-product-input invoice-product-input-{{ product.id }}" 
+                data-id="{{ product.id }}" 
+                data-code="{{ product.code }}"
+                data-title="{{ product.code }}, {{ product.name }}"
+                data-pieces_in_box="{{ product.pieces_in_box  }}"
+                data-parent_id="table_product_{{ product.pk }}"
+                data-parentClass = "product-{{ product.id }}"
+                type="number" 
+                step="{{ product.pieces_in_box }}" 
+                value="{{ product.quantity }}">
+        </p>
+    </div>
+</li>
+</template>
+{% endverbatim %}

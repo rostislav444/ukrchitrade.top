@@ -1,0 +1,110 @@
+
+body {
+    /* font-family: 'Montserrat'; */
+    width: 100%;
+    display: block;
+    max-width: 1920px;
+    min-width: 320px;
+    margin: auto;
+   /* background-color: #f5f5fa;*/
+    background-color: rgba(0,0,40,0.04);
+    overflow-x: hidden;
+}
+
+
+.content {
+	position: relative;
+    width: calc(100% - 32px);
+    margin: 0 auto;
+}
+
+@media(max-width: 1600px) {
+    .content {
+        width: calc(100% - 96px);
+        max-width: 100%;
+    }
+}
+
+
+@media(max-width: 960px) {
+    .content {
+        width: calc(100% - 32px);
+        margin: 0 auto;
+      
+    }
+}
+
+
+.block   {display: block;}
+.flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.inlineblock {display: inline-block;}
+.grid    {display: grid;}
+.none    {display: none;}
+.pointer {cursor: pointer;}
+.left {float: left;}
+.right {float: right;}
+.disabled {
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.border_0 {
+    border: 0px solid rgba(0, 0, 0, 0);
+}
+
+
+.disable-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+  }
+
+.divcenter {
+    position: relative;
+    display: block;
+    width: auto;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-2-col { display: grid; grid-template-columns: repeat(2, 1fr);}
+.list-3-col { display: grid; grid-template-columns: repeat(3, 1fr);}
+.list-4-col { display: grid; grid-template-columns: repeat(4, 1fr);}
+
+.g-gap-16 { grid-gap: var(--px16); }
+.g-gap-24 { grid-gap: var(--px24); }
+.g-gap-32 { grid-gap: var(--px32); }
+
+
+
+
+}
+
+/* MDL */
+/* File upload */
+.mdl-button--file input {
+    cursor: pointer;
+    height: 100%;
+    right: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 300px;
+    z-index: 4;
+  }
+  
+  .mdl-textfield--file .mdl-textfield__input {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+  }
+  .mdl-textfield--file .mdl-button--file {
+    right: 0;
+  }
+  

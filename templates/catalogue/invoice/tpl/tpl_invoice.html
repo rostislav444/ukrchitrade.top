@@ -1,0 +1,161 @@
+{% verbatim %}
+<template id=tpl_invoice>
+    
+    <div class="rw">
+        <p>Создать / Изменить инвойс</p>
+    </div>
+    
+    <!-- INVOICE -->
+    <div class="rw ">
+        <select name="id" class="custom-select cl12 infoice-form-field" id="select_invoice" data-default=0>
+            <option value=0>Новый инвойс</option>
+            {% for item in invoice.invoices %}
+                {% if invoice.pk == item.pk %}
+                    <option value="{{ item.pk }}" selected>{{ item.date }}, code: {{ item.code }}</option>
+                {% else %}
+                    <option value="{{ item.pk }}">{{ item.date }}, code: {{ item.code }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- TEMPLATE -->
+    <div class="rw">
+        <label for="">Шаблон</label>
+        <select name="template" class="custom-select cl9 infoice-form-field cl-s-12" id="select_invoice_template" data-default=''>
+            {% for item in invoice.templates %}
+                {% if invoice.template == item.pk %}
+                    <option value="{{ item.pk }}" selected>{{ item.name }}</option>
+                {% else %}
+                    <option value="{{ item.pk }}">{{ item.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <a class="btn bg-silver cl3 cl-s-12" href="/admin/documents/invoicetemplate/add/">Добавить</a>
+    </div>
+
+    <!-- EXPORTER IMPORTER -->
+    <div class="rw">
+        <!-- EXPORTER -->
+        <div class="rw cl6 cl-s-12">
+            <label for="">Експортер</label>
+            <select name="exporter" class="custom-select infoice-form-field" id="select_invoice_exporter">
+                <option value=0>---</option>
+                {% for item in invoice.companies %}
+                    {% if invoice.exporter == item.pk %}
+                        <option value="{{ item.pk }}" selected>{{ item.organization }}</option>
+                    {% else %}
+                        <option value="{{ item.pk }}">{{ item.organization }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- IMPORTER -->
+        <div class="rw cl6 cl-s-12">
+            <label for="">Ипортер</label>
+            <select name="importer" class="custom-select infoice-form-field" id="select_invoice_importer">
+                <option value=0>---</option>
+                {% for item in invoice.companies %}
+                    {% if invoice.importer == item.pk %}
+                        <option value="{{ item.pk }}" selected>{{ item.organization }}</option>
+                    {% else %}
+                        <option value="{{ item.pk }}">{{ item.organization }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            
+        </div>
+    </div>
+
+    <!-- WHOOSALE INCOTERMS -->
+    <div class="rw">
+        <!-- EXPORTER -->
+        <div class="rw cl6 cl-s-12">
+            <label for="">Мультипликатор цены</label>
+            <select name="price" class="custom-select infoice-form-field" id="select_invoice_exporter">
+                {% for item in invoice.prices %}
+                    {% if invoice.price == item.pk %}
+                        <option value="{{ item.pk }}" selected>{{ item.formula }}</option>
+                    {% else %}
+                        <option value="{{ item.pk }}">{{ item.formula }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- IMPORTER -->
+        <div class="rw cl6 cl-s-12">
+            <label for="">Инкотермс</label>
+            <select name="incoterms" class="custom-select infoice-form-field" id="select_invoice_importer">
+                <option value=0>---</option>
+                {% for item in invoice.incotermses %}
+                    {% if invoice.incoterms == item.pk %}
+                        <option value="{{ item.pk }}" selected>{{ item.name }} ({{ item.formula }})</option>
+                    {% else %}
+                        <option value="{{ item.pk }}">{{ item.name }} ({{ item.formula }})</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            
+        </div>
+    </div>
+
+    <!-- CODE / DATA -->
+    <div class="rw">
+        <div class="rw cl6">
+            <label for="">Номер инвойса</label>
+            <input value="{{ invoice.code }}" name="code" type="text" class="form-control infoice-form-field" id="input_invoice_number">
+        </div>
+        <div class="rw cl6">
+            <label for="">Дата составления</label>
+            <div  class="input-group date" data-provide="datepicker">
+                <input value="{{ invoice.date }}" name="date" type="text" class="form-control infoice-form-field" id="input_invoice_number">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <label for="">Товары</label>
+    <ul class="invoice_products" id="invoice_products">
+        {% for product in invoice.products %}
+            <li class="product product-{{ product.id }} invoice-product-{{ product.id }} invoice-product" data-id="{{ product.id }}" >
+                <span class="close delete" data-invoice_id="{{ invoice.id }}" data-parent="invoice-product-{{ product.id }}" data-id="{{ product.id }}" onclick=InvoiceProductDelete(this)>
+                    <img src="/static/img/close.png" alt="x">
+                </span>
+                <div class="invoice_product_image">
+                    <input type="checkbox" name="" data-id="product-{{ product.id }}-checkbox" class="product-checkbox product-{{ product.id }}-checkbox">
+                    <img width=64 height="64" style="object-fit: contain;" src="{{ product.image }}" alt="">
+                </div>
+                
+                <div>
+                    <p class="h6 title">{{ product.code }}, {{ product.name }}</p>
+                    <p>
+                        <input width="360" 
+                            class="form-control invoice-product-input invoice-product-input-{{ product.id }}" 
+                            data-id="{{ product.id }}" 
+                            data-code="{{ product.code }}"
+                            data-title="{{ product.code }}, {{ product.name }}"
+                            data-pieces_in_box="{{ product.pieces_in_box  }}"
+                            data-parent_id="table_product_{{ product.pk }}"
+                            data-parentClass = "product-{{ product.id }}"
+                            type="number" 
+                            step="{{ product.pieces_in_box }}" 
+                            value="{{ product.quantity }}">
+                    </p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- BUTTONS -->
+    <button class="btn bg-yellow" onclick="Invoice()" id="invoice_button">{% if invoice.pk %}Изменить{% else %}Создать{% endif %} инвойс</button>
+    <button class="btn bg-orange" onclick="printInvoice()">Скачать</button>
+    <!-- <button class="btn bg-red" onclick="InvoiceDelete()" id="invoice_button">Удалить инвойс</button> -->
+
+</template>
+{% endverbatim %}
+    

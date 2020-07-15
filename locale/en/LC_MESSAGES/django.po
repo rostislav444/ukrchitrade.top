@@ -1,0 +1,660 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-11 12:13+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/catalogue/serilaizers.py:49
+msgid "Картинка"
+msgstr "Picture"
+
+#: apps/catalogue/serilaizers.py:50 apps/catalogue/views.py:157
+#: templates/catalogue/table/table.html:19
+msgid "Категория"
+msgstr "Category"
+
+#: apps/catalogue/serilaizers.py:51
+msgid "Тип товара"
+msgstr "Product type"
+
+#: apps/catalogue/serilaizers.py:52 templates/catalogue/table/table.html:11
+msgid "Артикул"
+msgstr "Vendor code"
+
+#: apps/catalogue/serilaizers.py:53 templates/catalogue/table/table.html:21
+msgid "УКТЗЕД"
+msgstr "UKZED"
+
+#: apps/catalogue/serilaizers.py:54 templates/catalogue/table/table.html:15
+msgid "Название"
+msgstr "Title"
+
+#: apps/catalogue/serilaizers.py:55 apps/catalogue/views.py:159
+#: templates/catalogue/table/table.html:16
+msgid "Цена"
+msgstr "Price"
+
+#: apps/catalogue/serilaizers.py:56 apps/catalogue/views.py:160
+msgid "Производитель"
+msgstr "Manufacturer"
+
+#: apps/catalogue/serilaizers.py:59
+msgid "Обновление цены"
+msgstr "Price update"
+
+#: apps/catalogue/serilaizers.py:83
+msgid "Колличество"
+msgstr "Amount"
+
+#: apps/catalogue/serilaizers.py:84
+msgid "Всего"
+msgstr "Total"
+
+#: apps/catalogue/views.py:155 templates/catalogue/table/table.html:10
+msgid "Изображение"
+msgstr "Picture"
+
+#: apps/catalogue/views.py:156
+msgid "Название продукции"
+msgstr "Product Name"
+
+#: apps/catalogue/views.py:158 templates/catalogue/table/table.html:20
+msgid "Тип"
+msgstr "Type"
+
+#: apps/catalogue/views.py:161
+msgid "Время поставки"
+msgstr "Delivery time"
+
+#: apps/catalogue/views.py:162
+msgid "W"
+msgstr "Ш"
+
+#: apps/catalogue/views.py:163
+msgid "L"
+msgstr "Д"
+
+#: apps/catalogue/views.py:164
+msgid "H"
+msgstr "В"
+
+#: apps/catalogue/views.py:165 templates/catalogue/product/product.html:52
+msgid "Обьем"
+msgstr "Volume"
+
+#: apps/catalogue/views.py:166 templates/catalogue/product/product.html:53
+msgid "Обьемный вес"
+msgstr "Volume weight"
+
+#: apps/catalogue/views.py:167 templates/catalogue/product/product.html:54
+#, fuzzy
+#| msgid "Вес брутто"
+msgid "Вес нетто"
+msgstr "Gross weight"
+
+#: apps/catalogue/views.py:168 templates/catalogue/product/product.html:55
+msgid "Вес брутто"
+msgstr "Gross weight"
+
+#: apps/catalogue/views.py:169 templates/catalogue/product/product.html:50
+msgid "Штук в ящике"
+msgstr "Pieces in a box"
+
+#: apps/catalogue/views.py:170
+msgid "Цена доставки 1 шт"
+msgstr "Shipping cost 1 pc"
+
+#: apps/catalogue/views.py:171
+msgid "Цена с доставкой в Киеве, шт"
+msgstr "Price with delivery in Kiev, pcs"
+
+#: apps/catalogue/views.py:172
+msgid "Цена с доставкой в Киеве, ящик"
+msgstr "Price with delivery in Kiev, box"
+
+#: apps/catalogue/views.py:173
+msgid "Ссылка на документы"
+msgstr "Link to documents"
+
+#: apps/catalogue/views.py:254
+msgid "Фото"
+msgstr "Photo"
+
+#: apps/catalogue/views.py:255 templates/catalogue/product/files.html:8
+msgid "Документы"
+msgstr "Documents"
+
+#: apps/catalogue/views.py:256 templates/catalogue/product/files.html:30
+msgid "Сертификаты"
+msgstr "Certificates"
+
+#: apps/core/apps.py:77
+msgid "Нажмите сохранить и продолжить, для получения ссылки редактирования"
+msgstr "Click save and continue to get the edit link"
+
+#: apps/core/forms.py:15
+msgid "Введите Ваш Email"
+msgstr "Enter your Email"
+
+#: apps/core/forms.py:16
+msgid "Email имеет не верный формат"
+msgstr "Email имеет не верный формат"
+
+#: apps/core/forms.py:17
+msgid "Email *"
+msgstr "Email *"
+
+#: apps/core/forms.py:21
+msgid "Введите Ваше имя"
+msgstr "Enter your name"
+
+#: apps/core/forms.py:22
+msgid "Ваше имя *"
+msgstr "Your name *"
+
+#: apps/core/forms.py:26
+msgid "Вы ничего не написали"
+msgstr "You did not write anything"
+
+#: apps/core/forms.py:27
+msgid "Текст письма *"
+msgstr "Text of the letter *"
+
+#: apps/core/languages.py:5
+msgid "Afrikaans"
+msgstr ""
+
+#: apps/core/languages.py:6
+msgid "Arabic"
+msgstr ""
+
+#: apps/core/languages.py:7
+msgid "Asturian"
+msgstr ""
+
+#: apps/core/languages.py:8
+msgid "Azerbaijani"
+msgstr ""
+
+#: apps/core/languages.py:9
+msgid "Bulgarian"
+msgstr ""
+
+#: apps/core/languages.py:10
+msgid "Belarusian"
+msgstr ""
+
+#: apps/core/languages.py:11
+msgid "Bengali"
+msgstr ""
+
+#: apps/core/languages.py:12
+msgid "Breton"
+msgstr ""
+
+#: apps/core/languages.py:13
+msgid "Bosnian"
+msgstr ""
+
+#: apps/core/languages.py:14
+msgid "Catalan"
+msgstr ""
+
+#: apps/core/languages.py:15
+msgid "Czech"
+msgstr ""
+
+#: apps/core/languages.py:16
+msgid "Welsh"
+msgstr ""
+
+#: apps/core/languages.py:17
+msgid "Danish"
+msgstr ""
+
+#: apps/core/languages.py:18
+msgid "German"
+msgstr ""
+
+#: apps/core/languages.py:19
+msgid "Lower Sorbian"
+msgstr ""
+
+#: apps/core/languages.py:20
+msgid "Greek"
+msgstr ""
+
+#: apps/core/languages.py:21
+msgid "English"
+msgstr ""
+
+#: apps/core/languages.py:22
+msgid "Australian English"
+msgstr ""
+
+#: apps/core/languages.py:23
+msgid "British English"
+msgstr ""
+
+#: apps/core/languages.py:24
+msgid "Esperanto"
+msgstr ""
+
+#: apps/core/languages.py:25
+msgid "Spanish"
+msgstr ""
+
+#: apps/core/languages.py:26
+msgid "Argentinian Spanish"
+msgstr ""
+
+#: apps/core/languages.py:27
+msgid "Colombian Spanish"
+msgstr ""
+
+#: apps/core/languages.py:28
+msgid "Mexican Spanish"
+msgstr ""
+
+#: apps/core/languages.py:29
+msgid "Nicaraguan Spanish"
+msgstr ""
+
+#: apps/core/languages.py:30
+msgid "Venezuelan Spanish"
+msgstr ""
+
+#: apps/core/languages.py:31
+msgid "Estonian"
+msgstr ""
+
+#: apps/core/languages.py:32
+msgid "Basque"
+msgstr ""
+
+#: apps/core/languages.py:33
+msgid "Persian"
+msgstr ""
+
+#: apps/core/languages.py:34
+msgid "Finnish"
+msgstr ""
+
+#: apps/core/languages.py:35
+msgid "French"
+msgstr ""
+
+#: apps/core/languages.py:36
+msgid "Frisian"
+msgstr ""
+
+#: apps/core/languages.py:37
+msgid "Irish"
+msgstr ""
+
+#: apps/core/languages.py:38
+msgid "Scottish Gaelic"
+msgstr ""
+
+#: apps/core/languages.py:39
+msgid "Galician"
+msgstr ""
+
+#: apps/core/languages.py:40
+msgid "Hebrew"
+msgstr ""
+
+#: apps/core/languages.py:41
+msgid "Hindi"
+msgstr ""
+
+#: apps/core/languages.py:42
+msgid "Croatian"
+msgstr ""
+
+#: apps/core/languages.py:43
+msgid "Upper Sorbian"
+msgstr ""
+
+#: apps/core/languages.py:44
+msgid "Hungarian"
+msgstr ""
+
+#: apps/core/languages.py:45
+msgid "Armenian"
+msgstr ""
+
+#: apps/core/languages.py:46
+msgid "Interlingua"
+msgstr ""
+
+#: apps/core/languages.py:47
+msgid "Indonesian"
+msgstr ""
+
+#: apps/core/languages.py:48
+msgid "Ido"
+msgstr ""
+
+#: apps/core/languages.py:49
+msgid "Icelandic"
+msgstr ""
+
+#: apps/core/languages.py:50
+msgid "Italian"
+msgstr ""
+
+#: apps/core/languages.py:51
+msgid "Japanese"
+msgstr ""
+
+#: apps/core/languages.py:52
+msgid "Georgian"
+msgstr ""
+
+#: apps/core/languages.py:53
+msgid "Kabyle"
+msgstr ""
+
+#: apps/core/languages.py:54
+msgid "Kazakh"
+msgstr ""
+
+#: apps/core/languages.py:55
+msgid "Khmer"
+msgstr ""
+
+#: apps/core/languages.py:56
+msgid "Kannada"
+msgstr ""
+
+#: apps/core/languages.py:57
+msgid "Korean"
+msgstr ""
+
+#: apps/core/languages.py:58
+msgid "Luxembourgish"
+msgstr ""
+
+#: apps/core/languages.py:59
+msgid "Lithuanian"
+msgstr ""
+
+#: apps/core/languages.py:60
+msgid "Latvian"
+msgstr ""
+
+#: apps/core/languages.py:61
+msgid "Macedonian"
+msgstr ""
+
+#: apps/core/languages.py:62
+msgid "Malayalam"
+msgstr ""
+
+#: apps/core/languages.py:63
+msgid "Mongolian"
+msgstr ""
+
+#: apps/core/languages.py:64
+msgid "Marathi"
+msgstr ""
+
+#: apps/core/languages.py:65
+msgid "Burmese"
+msgstr ""
+
+#: apps/core/languages.py:66
+msgid "Norwegian Bokmål"
+msgstr ""
+
+#: apps/core/languages.py:67
+msgid "Nepali"
+msgstr ""
+
+#: apps/core/languages.py:68
+msgid "Dutch"
+msgstr ""
+
+#: apps/core/languages.py:69
+msgid "Norwegian Nynorsk"
+msgstr ""
+
+#: apps/core/languages.py:70
+msgid "Ossetic"
+msgstr ""
+
+#: apps/core/languages.py:71
+msgid "Punjabi"
+msgstr ""
+
+#: apps/core/languages.py:72
+msgid "Polish"
+msgstr ""
+
+#: apps/core/languages.py:73
+msgid "Portuguese"
+msgstr ""
+
+#: apps/core/languages.py:74
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: apps/core/languages.py:75
+msgid "Romanian"
+msgstr ""
+
+#: apps/core/languages.py:76
+msgid "Russian"
+msgstr ""
+
+#: apps/core/languages.py:77
+msgid "Slovak"
+msgstr ""
+
+#: apps/core/languages.py:78
+msgid "Slovenian"
+msgstr ""
+
+#: apps/core/languages.py:79
+msgid "Albanian"
+msgstr ""
+
+#: apps/core/languages.py:80
+msgid "Serbian"
+msgstr ""
+
+#: apps/core/languages.py:81
+msgid "Serbian Latin"
+msgstr ""
+
+#: apps/core/languages.py:82
+msgid "Swedish"
+msgstr ""
+
+#: apps/core/languages.py:83
+msgid "Swahili"
+msgstr ""
+
+#: apps/core/languages.py:84
+msgid "Tamil"
+msgstr ""
+
+#: apps/core/languages.py:85
+msgid "Telugu"
+msgstr ""
+
+#: apps/core/languages.py:86
+msgid "Thai"
+msgstr ""
+
+#: apps/core/languages.py:87
+msgid "Turkish"
+msgstr ""
+
+#: apps/core/languages.py:88
+msgid "Tatar"
+msgstr ""
+
+#: apps/core/languages.py:89
+msgid "Udmurt"
+msgstr ""
+
+#: apps/core/languages.py:90
+msgid "Ukrainian"
+msgstr ""
+
+#: apps/core/languages.py:91
+msgid "Urdu"
+msgstr ""
+
+#: apps/core/languages.py:92
+msgid "Uzbek"
+msgstr ""
+
+#: apps/core/languages.py:93
+msgid "Vietnamese"
+msgstr ""
+
+#: apps/core/languages.py:94
+msgid "Simplified Chinese"
+msgstr ""
+
+#: apps/core/languages.py:95
+msgid "Traditional Chinese"
+msgstr ""
+
+#: apps/documents/serializers.py:54
+msgid "Инвойсы"
+msgstr "Invoices"
+
+#: apps/documents/serializers.py:55
+msgid "Шаблон"
+msgstr "Template"
+
+#: apps/documents/serializers.py:56
+msgid "Шаблоны"
+msgstr "Patterns"
+
+#: apps/documents/serializers.py:57
+msgid "Формула цен"
+msgstr "Price formula"
+
+#: apps/documents/serializers.py:58
+msgid "Формулы цен"
+msgstr "Price formulas"
+
+#: apps/documents/serializers.py:59 apps/documents/serializers.py:61
+msgid "Компании"
+msgstr "Companies"
+
+#: apps/documents/serializers.py:60
+msgid "Инкотермс"
+msgstr "Incoterms"
+
+#: templates/base.html:41
+msgid "Мелкий опт"
+msgstr "Small wholesale"
+
+#: templates/base.html:42
+msgid "Средний опт"
+msgstr "Medium Wholesale"
+
+#: templates/base.html:43
+msgid "Крупный опт"
+msgstr "Large wholesale"
+
+#: templates/catalogue/catalogue.html:20
+msgid "Редактировать товары"
+msgstr "Edit Products"
+
+#: templates/catalogue/catalogue.html:25
+msgid "Инвойс"
+msgstr "Invoice"
+
+#: templates/catalogue/catalogue.html:36 templates/catalogue/catalogue.html:41
+msgid "Загруить"
+msgstr "Download"
+
+#: templates/catalogue/catalogue.html:50
+msgid "Выбранные товары"
+msgstr "Selected Products"
+
+#: templates/catalogue/catalogue.html:74
+#, fuzzy
+#| msgid "Всего"
+msgid "Все"
+msgstr "Total"
+
+#: templates/catalogue/product/files.html:4
+msgid "Файлы"
+msgstr "Files"
+
+#: templates/catalogue/product/files.html:21
+#, fuzzy
+#| msgid "Документы"
+msgid "Нет документов"
+msgstr "Documents"
+
+#: templates/catalogue/product/files.html:44
+#, fuzzy
+#| msgid "Сертификаты"
+msgid "Нет сертификатов"
+msgstr "Certificates"
+
+#: templates/catalogue/product/product.html:46
+msgid "Цена ящика"
+msgstr "Box Price"
+
+#: templates/catalogue/product/product.html:47
+msgid "Цена, шт"
+msgstr "Price, pcs"
+
+#: templates/catalogue/product/product.html:48
+msgid "Цена с доставкой ящика"
+msgstr "Price with box delivery"
+
+#: templates/catalogue/product/product.html:49
+msgid "Цена с доставкой шт"
+msgstr "Price with delivery"
+
+#: templates/catalogue/product/product.html:51
+msgid "Штук в упаковке"
+msgstr "Pieces per pack"
+
+#: templates/catalogue/product/product.html:61
+#: templates/catalogue/table/table.html:14
+msgid "Описание"
+msgstr "Description"
+
+#: templates/catalogue/product/product.html:74
+msgid "Примечанияе"
+msgstr "Notes"
+
+#: templates/catalogue/product/product.html:80
+msgid "Загрузить все файлы"
+msgstr "Download all files"
+
+#: templates/catalogue/table/table.html:17
+#, fuzzy
+#| msgid "Изображение"
+msgid "Обновление"
+msgstr "Picture"
+
+#: templates/catalogue/table/table.html:18
+msgid "Кол-во"
+msgstr "Qty"

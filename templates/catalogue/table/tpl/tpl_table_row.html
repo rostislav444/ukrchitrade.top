@@ -1,0 +1,63 @@
+{% load i18n %}
+
+{% verbatim %}
+<template id="tpl_table_rwo">
+  {% for product in products %}
+  <tr data-id='{{ product.pk }}' class="product-{{ product.pk }}">
+      <td data-label="№" class="num" data-title="№">
+        <span>1</span>
+      </td>
+      <td data-label="Отметить" class="num">
+        <input type="checkbox" name="check_product" data-id="product-{{ product.pk }}-checkbox" class="product-checkbox product-{{ product.pk }}-checkbox">
+      </td>
+      <td class="image">
+        <a href="{{ product.get_absolute_url }}">
+          <img src="{{ product.image }}" alt="">
+        </a>
+      </td>
+      <td data-label="Артикул" class="code"     data-title="Артикул">{{ product.code }}</td>
+      <td class="count"    data-title="Кол-во" >
+        <input width="360" 
+          class="form-control product_qty" 
+          id="table_product_{{ product.pk }}" 
+          data-id="{{ product.pk }}" 
+          data-code="{{ product.code }}"
+          data-name="{{ product.name }}"
+          data-pieces_in_box="{{ product.pieces_in_box }}"
+          data-image="{{ product.image }}"
+          type="number" 
+          min="0"
+          step="{{ product.pieces_in_box }}" value="0">
+      </td>
+      <!-- FDA -->
+      <td data-label="FDA" class="docs"   data-title="FDA">
+        <img class="yesno" src="/static/img/fda_{{ product.has_fda }}.png" alt="{{ product.has_fda }}">
+      </td>
+      <!-- CE -->
+      <td data-label="CE" class="certificates" data-title="CE">
+        <img class="yesno" src="/static/img/ce_{{ product.has_ce }}.png" alt="{{ product.has_ce }}">
+      </td>
+      <!-- has_description -->
+      <td data-label="Description" class="certificates" data-title="Description">
+        <img class="yesno" src="/static/img/description_{{ product.has_description }}.png" alt="{{ product.has_description }}">
+      </td>
+      <td data-label="Название" class="name"     data-title="Название" >{{ product.name }}</td>
+      <td data-label="Цена" class="price"    data-title="Цена">$ {{ product.price }}</td>
+      <td data-label="Опт" class="whoosale">
+        <ul>
+          <li><div class="whoosale_size">S:</div> ${{ product.get_sm_price }} (от {{ product.get_sm_start }})</li>
+          <li><div class="whoosale_size">M:</div> ${{ product.get_md_price }} (от {{ product.get_md_start }})</li>
+          <li><div class="whoosale_size">L:</div> ${{ product.get_bg_price }} (от {{ product.get_bg_start }})</li>
+        </ul>
+      </td>
+      <td data-label="Обновление цен"  class="update" data-title="Обновление цен">{{ product.price_update }}</td>
+      
+      <td data-label="Категоия" class="category" data-title="Категория" >{{ product.category }}</td>
+      <!-- Code -->
+      <td data-label="Тип" class="product_type " data-title="Тип" >{{ product.product_type }}</td>
+      <td data-label="УКЗЕД" class="customs_code"  data-title="УКЗЕД" >{{ product.customs_code }}</td>
+  </tr>
+  {% endfor %}
+  
+</template>    
+{% endverbatim %}

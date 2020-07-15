@@ -1,0 +1,10 @@
+{% verbatim %}
+    <template id="category_description">
+        <p class="title h2 upper pb16">{{ category.name }}</p>
+        {% if category.description %}
+            <div class="text category-description-text richtext">{{ category.description|safe }}</div>
+        {% else %}
+            <p class="h4 grey">Описание отсутсвует</p>
+        {% endif %}
+    </template>
+{% endverbatim %}

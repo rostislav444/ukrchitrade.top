@@ -1,0 +1,21 @@
+{% verbatim %}
+    <template id="tpl_atributes">
+        {% for attr in attributes %}
+            <div class="attr">
+                <p class="bold pt8">{{ attr.name }}</p>
+                <ul id="atributes_list">
+                    {% for value in attr.values %}
+                        <li>
+                            {% if value.selected %}
+                                <input type="checkbox" class="query attribute" id="attr-{{ value.pk }}"data-group="atributes"  data-id="{{ value.pk }}" data-value="{{ value.value }}" checked>
+                            {% else %}
+                                <input type="checkbox" class="query attribute" id="attr-{{ value.pk }}"data-group="atributes"  data-id="{{ value.pk }}" data-value="{{ value.value }}"> 
+                            {% endif %}
+                            <label class="ml8" for="attr-{{ value.pk }}">{{ value.value }} </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </template>
+{% endverbatim %}

@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+{% block content %}
+<!-- Table starts here -->
+<table id="table" class="display table table-hover">
+    <thead>
+      <tr>
+        <th class="num"><span>#</span></th>
+        <th class="num"></th>
+        <th class="image">{% trans 'Изображение' %}</th>
+        <th class="code">{% trans 'Артикул' %}</th>
+        <th class="count">{% trans 'Кол-во' %}</th>
+        <th class="code">FDA</th>
+        <th class="code">CE</th>
+        <th class="code">{% trans 'Описание' %}</th>
+        <th class="name">{% trans 'Название' %}</th>
+        <th class="price">{% trans 'Цена' %}</th>
+        <th class="whoosale">{% trans 'Опт' %}</th>
+        <th class="update">{% trans 'Обновление' %}</th>
+        <th class="category">{% trans 'Категория' %}</th>
+        <th class="product_type">{% trans 'Тип' %}</th>
+        <th class="customs_code">{% trans 'УКТЗЕД' %}</th>
+      </tr>
+    </thead>
+    <tbody id="table_body"></tbody>
+  </table>
+  {% endblock %}
+

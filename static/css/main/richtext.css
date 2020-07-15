@@ -1,0 +1,59 @@
+.richtext * {
+    color: inherit;
+}
+
+.richtext p {
+    padding-bottom: 16px;
+}
+
+
+.richtext h1, .richtext .h1,
+.richtext h2, .richtext .h2 {
+    text-align: center;
+    padding-top: var(--px24);
+    padding-bottom: var(--px24);
+}
+.richtext h3 {
+    font-size: calc(var(--font-size) * 21);
+    font-weight: 500;
+    padding-bottom: 8px;
+}
+
+.richtext p {
+    font-size: var(--h5);
+}
+
+.richtext a {
+    color: var(--color-2);
+    text-decoration: underline;
+}
+
+.richtext li {
+    display: list-item;
+    text-align: match-parent;
+    /* margin-left: var(--px16); */
+    padding-left: var(--px16);
+}
+.richtext li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: var(--color-2); 
+    font-weight: 900; 
+    font-size: var(--px20);
+    /* margin-bottom: calc((-1) * var(--px24)); */
+    line-height: 1.5;
+    display: inline-block; 
+    padding-right: var(--px12);
+    /* width: var(--px8);  */
+    margin-left:calc((-1) * var(--px16));
+  }
+
+
+.richtext b, .richtext strong {
+    font-weight: 600;
+}
+
+.richtext img {
+    width: 100%;
+    margin: 24px 0;
+    border-radius: 4px;
+}

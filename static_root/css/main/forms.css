@@ -1,0 +1,37 @@
+.form {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-gap: var(--px16);
+    max-width: var(--px1140);
+    grid-template-columns: repeat(1, 1fr);
+}
+.form button {
+    cursor: pointer;
+    padding: 16px;
+    border: 0px;
+    border-radius: var(--px4);
+    background-color: #9be19b;
+    width: 100% ;
+    transition: all 0.4s ease-in-out;
+}
+.form button:hover {
+    background-color: var(--color-2);
+    color: white;
+}
+
+.form input, .form textarea {
+    width: 100%;
+    font-size: var(--px14);
+    padding: var(--px12) var(--px16);
+    width: calc(100% - var(--px36));
+    border: var(--px2) solid #ededed ;
+    border-radius: var(--px4);
+}
+.form textarea {
+    resize: vertical;
+}
+.form .color-alert {
+    font-size: var(--px12) !important;
+}
+
+

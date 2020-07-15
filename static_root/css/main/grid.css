@@ -1,0 +1,30 @@
+.col-lg-1 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: var(--px8);
+}
+.col-lg-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: var(--px8);
+}
+
+@media (max-width: 720px) {
+    .col-sm-1 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: var(--px8);
+    }
+}
+
+.flex_start_center {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex_end_center {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+

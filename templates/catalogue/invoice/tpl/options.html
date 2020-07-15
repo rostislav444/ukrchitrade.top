@@ -1,0 +1,8 @@
+{% verbatim %}
+<template id="tpl_invoice_list">
+    <option value=0>Новый инвойс</option>
+    {% for item in invoices %}
+        <option value="{{ item.pk }}">{{ item.code }}, {{ item.date }}</option>
+    {% endfor %}
+</template> 
+{% endverbatim %}

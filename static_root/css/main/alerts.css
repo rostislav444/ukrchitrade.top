@@ -1,0 +1,22 @@
+.good {
+    background-color: #e4ffe1;
+}
+
+.border-valid {
+    border: 2px solid #adf3ba !important;
+}
+.border-invalid {
+    border: 2px solid #fbbbbb !important;
+}
+
+.invalid {
+    color: #ff556f;
+}
+
+.valid {
+    color: #38c86d;
+}
+
+.hide {
+    display: block;
+}

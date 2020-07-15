@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+<!-- Title -->
+{% block title %}{{ product.code }} - {{ product.name }}{% endblock %}
+<!-- Links -->
+{% block links %}
+    <link rel="stylesheet" href="{% static 'lib/swiper/package/css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product/product.css' %}">
+{% endblock %}
+<!-- HTML -->
+{% block content %}
+<div class="container-fluid">
+
+    </head>
+    <body>
+      <div class="content">
+        <div class="main-info">
+          <!-- Swiper -->
+          <div class="galery">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                  {% for image in product.images.all %}  
+                      <div class="swiper-slide">
+                          <img src="{{ image.image_l.url }}" alt="">
+                      </div>
+                  {% endfor %}
+              </div>
+              <!-- Add Arrows -->
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="">
+            <h1 class="h1 font-weight-bold d-block mt8 mb32">{{ product.code }} - {{ product.name }}</h1>
+            
+            <div class="info">
+              <div>
+                <p class="h4 pb32">
+                  <span class="grey">Производитель: </span>
+                  <span class="red">{{ product.manufacturer }}</span>
+                </p>
+                <div class="price h5">
+                  <span>{% trans 'Цена ящика' %}:</span><span>{{ product.box_price }} $</span>
+                  <span>{% trans 'Цена, шт' %}:</span> <span>{{ product.get_price }} $</span>
+                  <span>{% trans 'Цена с доставкой ящика' %}:</span><span>{{ product.air_delivery_box_price }} $</span>
+                  <span>{% trans 'Цена с доставкой шт' %}:</span><span>{{ product.air_delivery_pc_price }} $</span>
+                  <span>{% trans 'Штук в ящике' %}:</span> <span>{{ product.pieces_in_box }} шт.</span>
+                  <span>{% trans 'Штук в упаковке' %}:</span> <span>{{ product.pieces_in_pack }} шт.</span>
+                  <span>{% trans 'Обьем' %}:</span> <span>{{ product.get_volume }} м3</span>
+                  <span>{% trans 'Обьемный вес' %}:</span> <span>{{ product.get_volume_weight }} кг</span>
+                  <span>{% trans 'Вес нетто' %}:</span> <span>{{ product.weight_netto }} кг.</span>
+                  <span>{% trans 'Вес брутто' %}:</span> <span>{{ product.weight_brutto }} кг.</span>
+                </div>
+              </div>
+              <!-- Description -->
+              {% if product.description %}
+                <div class="description">
+                  <p class="h4 mb24">{% trans 'Описание' %}:</p>
+                  <div class="overflow-scroll-gradient">
+                    <div class="overflow-scroll-gradient__scroller">
+                      <div class="pb48">{{ product.description|safe }}</div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+            
+            <!-- Notes -->
+            {% if product.notes %}
+              <div class="notes">
+                <p class="h3 mt32 mb16 ">{% trans 'Примечанияе' %}:</p>
+                <p>{{ product.notes }}</p>
+              </div>
+            {% endif %}
+            <!-- Button -->
+            <button onclick="location.href='{% url 'catalogue:products_zip' product.pk %}'" class="mt32 pl32 pr32 btn btn-primary">
+              {% trans 'Загрузить все файлы' %}
+            </button>
+            {% include './files.html' %}
+            
+          </div>
+        </div>
+    
+       
+
+      </div>
+      
+{% endblock %}
+<!-- JS -->
+{% block js %}
+<script src="{% static 'lib/swiper/package/js/swiper.min.js' %}"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+</script>
+{% endblock %}
