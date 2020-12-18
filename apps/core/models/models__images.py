@@ -1,313 +1,196 @@
 from django.db import models
-from project import settings
-import PIL
-from PIL import Image, ImageOps
+from django.core.exceptions import ValidationError
+from django.core.files.storage import default_storage
+from django.contrib.postgres.fields import JSONField
 from django.utils.text import slugify
-import unidecode
-import os
-import shutil 
-from preview_generator.manager import PreviewManager
+from django.utils.translation import gettext_lazy as _
+from project import settings
+from unidecode import unidecode
+import os, io, json, PIL
+
+
+def find_dominant_color(filename):
+    #Resizing parameters
+    width, height = 150,150
+    image = PIL.Image.open(filename)
+    image = image.resize((width, height),resample = 0)
+    #Get colors from image object
+    pixels = image.getcolors(width * height)
+    #Sort them by count number(first element of tuple)
+    sorted_pixels = sorted(pixels, key=lambda t: t[0])
+    #Get the most frequent color
+    dominant_color = sorted_pixels[-1][1]
+    return dominant_color
 
 
 
 
 
-def imageFilename(self, filename):
-    ext = filename.split('.')[-1]
-    app_name = self._meta.app_label
-    model_name = self._meta.model_name
 
-    name_attrs = ['id'+str(self.pk)]
-    name = ''
-    parent = self
-    models_attrs = ['slug','code']
-    while parent != None:
-        for attr in models_attrs:
-            if hasattr(parent, attr):
-                if getattr(parent, attr) != None:
-                    name_attrs.insert(0, str(getattr(parent, attr)))
-        if hasattr(parent, 'brand'):
-            name_attrs.insert(0, str(parent.brand.slug))
-        if hasattr(parent, 'parent'):
-            parent = parent.parent
-        else:
-            parent = None
-    name = '_'.join(name_attrs)
-    name = slugify(str(name))
+class ModelImages(models.Model):
+    id = models.AutoField(primary_key=True)
+    IMAGES_SIZES = {
+        'l':2400, 
+        'm':1200, 
+        's':480, 
+        'xs':80
+    }
+
+    class Meta:
+        abstract = True
+
+    def dir_path(self):
+        path = ""
+        root = settings.MEDIA_ROOT
+        for level in [self._meta.app_label, self._meta.model_name]:
+            path += level + '/'
+            if not os.path.isdir(root + path): 
+                os.mkdir(root + path)
+        return path
     
-
-    # APP NAME PATH
-    app_name_path = settings.MEDIA_ROOT + app_name + '/'
-    app_name_dir =   os.path.isdir(app_name_path)
-    if app_name_dir == False:
-        os.mkdir(app_name_path)
-
-    # MODEL NAME PATH
-    model_name_path = settings.MEDIA_ROOT + app_name + '/' + model_name + '/'
-    model_name_dir = os.path.isdir(model_name_path)
-    if model_name_dir == False:
-        os.mkdir(model_name_path)
-
-    path =  '/'.join([app_name, model_name])
-    
-    return path, name, ext
-
-
-class OneFile(models.Model):
-    num =        models.PositiveIntegerField(default=0, blank=True, verbose_name="Номер") 
-    name =       models.CharField(max_length=100, blank=True, default="", verbose_name="Название")
-    slug =       models.CharField(max_length=250, blank=True, null=True, verbose_name="Иденитификатор", editable=False)
-    file =       models.FileField(upload_to='temp', blank=False, null=True)
-    file_url =   models.CharField(max_length=1000, blank=True, editable=False)
-    ext =        models.CharField(max_length=100, blank=True, editable=False, verbose_name="file extension")
-
-    class Meta:
-        ordering = ['-num']
-        abstract = True
-
-    def save(self):
-        print(self.file.name)
-        super(OneFile, self).save()
-
-        if len(self.name) == 0:
-            try:
-                modelName =  self.__class__._meta.verbose_name.title()
-                self.name = ' '.join([modelName, self.product.category.name, self.product.name, self.product.code])
-            except:
-                self.name = self.__class__.__name__
-      
-
-
-        self.slug = slugify(unidecode.unidecode(self.name) + '-' + str(self.pk))
-        if self.file.url != '/media/' + self.file_url:
-            path, name, ext = imageFilename(self, self.file.name)
-            self.ext = ext.lower()
-            
-            # f_name = 
-
-            filename =  f'{path}/{self.slug}.{ext}'
-            tempFile = self.file.name
-            with open(settings.MEDIA_ROOT + self.file.name, "rb") as f1:
-                raw = f1.read()
-                with open(settings.MEDIA_ROOT + filename, 'wb') as f:
-                    f.write(raw)
-
-            setattr(getattr(self, 'file'), 'name', filename)
-            setattr(self, 'file_url', filename)
-
-            try: os.remove(settings.MEDIA_ROOT + tempFile)
-            except: pass
-            
-        super(OneFile, self).save()
-
-
-    def delete(self):
-        try:
-            os.remove(settings.MEDIA_ROOT + self.file.name)
-        except: pass
-        super(OneFile, self).delete()
-
-
-
-class OneImage(models.Model):
-    num =         models.PositiveIntegerField(default=0, blank=True, verbose_name="Номер") 
-    image =       models.ImageField(blank=False, null=True)
-    image_size  = models.CharField(max_length=1000, blank=True, editable=False)
-    image_url   = models.CharField(max_length=1000, blank=True, editable=False)
-  
-
-    class Meta:
-        ordering = ['-num']
-        abstract = True
-
-
-    def save(self):
-        super(OneImage, self).save()
-        if self.image.url != '/media/' + self.image_url:
-            path, name, ext = imageFilename(self, self.image.name)
-            img = Image.open(self.image._get_file())
-            if ext.lower() == 'png':
-                bg = Image.new("RGBA", img.size, "WHITE") 
-                bg.putalpha(255)
-
-                try:
-                    bg.paste(img, (0, 0), img)      
-                except:
-                    bg.paste(img, (0, 0))      
-                img = bg.convert('RGB')
-                ext = 'JPEG'
-
-            temp_img_path = settings.MEDIA_ROOT + 'temp-image.' + ext
-            img.save(temp_img_path, quality=100)
-            img.close()
-            
-
-            # CREATE IMAGES
-          
-            img = Image.open(temp_img_path)
-            filename =  f'{path}/{name}.{ext}'
-            setattr(getattr(self, 'image'), 'name', filename)
-
-            img.thumbnail((1080, 1080), Image.ANTIALIAS)
-                
-            setattr(self, 'image_size', str(img.size[0]) + 'x' + str(img.size[1]))
-            setattr(self, 'image_url', filename)
-            img.save(settings.MEDIA_ROOT +  filename, quality=100)
-            img.close()
-
-            # Remove temp file
-            try: os.remove(temp_img_path)
-            except: pass
-
-            fields = self._meta.get_fields()
-        super(OneImage, self).save()
-
-
-
-    def delete(self):
-        path = getattr(self, 'image_url')
-        try:
-            os.remove(settings.MEDIA_ROOT + self.image.name)
-        except: pass
-        super(OneImage, self).delete()
-
-
-# IMAGES
-class Images(models.Model):
-    num = models.PositiveIntegerField(default=0, blank=True, verbose_name="Номер") 
-    # LARGE
-    image_l =       models.ImageField(max_length=1000, blank=False, null=True, editable=True)
-    image_l_size =  models.CharField(max_length=1000, blank=True, editable=False)
-    image_l_url =   models.CharField(max_length=1000, blank=True, editable=False)
-    # # MEDIUM
-    # image_m =       models.ImageField(blank=True, null=True, editable=False)
-    # image_m_size  = models.CharField(max_length=1000, blank=True, editable=False)
-    # image_m_url   = models.CharField(max_length=1000, blank=True, editable=False)
-    # SMALL
-    image_s       = models.ImageField(blank=True, null=True, editable=False)
-    image_s_size  = models.CharField(max_length=1000, blank=True, editable=False)
-    image_s_url   = models.CharField(max_length=1000, blank=True, editable=False)
-    # EXTRA SMALL
-    image_xs      = models.ImageField(blank=True, null=True, editable=False)
-    image_xs_size = models.CharField(max_length=1000, blank=True, editable=False)
-    image_xs_url  = models.CharField(max_length=1000, blank=True, editable=False)
-    # SQUARE 1200px * 1200px
-    image_sq      = models.ImageField(blank=True, null=True, editable=True)
-    image_sq_size = models.CharField(max_length=1000, blank=True, editable=False)
-    image_sq_url  = models.CharField(max_length=1000, blank=True, editable=False)
-    # REGENERATE
-    regen = models.BooleanField(default=False, editable=True)
-    ext =   models.CharField(max_length=100, default='jpeg', blank=True, editable=False, verbose_name="file extension")
-
-
-    class Meta:
-        ordering = ['-num']
-        abstract = True
-
-
-    def save(self):
-        super(Images, self).save()
-        if self.image_l.url != '/media/' + self.image_l_url or self.regen == True:
-            img_path = settings.MEDIA_ROOT  + self.image_l.name
-         
-            img = None
-            for size in ['l', 'sq']:
-                try:
-                    img = getattr(self, 'image_' + size)
-                    img._get_file()
-                    break
-                except: continue
-
-            if img is not None:
-                path, name, ext = imageFilename(self, img.name)
-                img = Image.open(img._get_file())
-                if ext.lower() == 'png':
-                    bg = Image.new("RGBA", img.size, "WHITE") 
-                    img.putalpha(255)
-                    bg.paste(img, (0, 0), img)              
-                    img = bg.convert('RGB')
-                    ext = 'JPEG'
-
-                temp_img_path = settings.MEDIA_ROOT + path + 'temp-image.' + ext
-                img.save(temp_img_path, quality=100)
-                img.close()
-            else: raise FileNotFoundError
-
-            try: os.remove(self.image_l.url)
-            except: pass
-            
+    def human_name(self, field_name):
+        inst = self
+        instances = [inst]
+        if hasattr(inst,'parent'):
+            instances.append(inst.parent)
+       
+        name_parts = [field_name]
         
-            sizes = (
-                ('xs', 160),
-                ('s',  480),
-                ('l',  1200),
-                ('sq', 1200),
-            )
+        for inst in instances:
+            if hasattr(inst, 'make_slug'):
+                name_parts.append(inst.make_slug)
+                break
+            for attr in ['slug','name','title','code','category','create']:
+                if hasattr(inst, attr):
+                    attr = getattr(inst, attr)
+                    if attr is not None:
+                        name_parts.append(slugify(unidecode(str(attr))))
+                        break
+        if not self.id:
+            last_obj = type(self).objects.order_by('pk').last()
+            if last_obj: id = last_obj.pk + 1
+            else: id = 1
+        else:
+            id = self.id
+        print(name_parts, instances)
+        return '__'.join(name_parts)[:50] + 'id_'+str(id)
 
-            def make_square(image, min_size=1200):  
-                x, y = img.size
-                z = x / y
-                if z > 1:
-                    x = 1200
-                    y = int(x / z)
+    def ext_convert(self, ext):
+        if ext == 'png': 
+            return "RGBA","PNG"
+        else: 
+            return "RGB","JPEG"   
+
+    def get_image_io(self, file, ext):
+        if ext in ['gif','mp4']:
+            image_io = io.BytesIO(file.read())
+        else:
+            image_io = io.BytesIO()
+            img_convert, img_format = self.ext_convert(ext)
+            image = PIL.Image.open(file).convert(img_convert)
+            image.save(image_io, format=img_format)
+            image.close()
+        return image_io
+
+    def img_size_path(self, key, path, ext):
+        if key == 'l': 
+            return path+'.'+ext
+        else:           
+            return path+'_'+key+'.'+ext
+
+    def make_thumbs(self, field_name, image_io, ext):
+        thmbs = {}           
+        path = self.dir_path() + self.human_name(field_name)
+        prev_w, prev_h = (0,0)
+        prev_path = None
+        for key, size in self.IMAGES_SIZES.items():
+            path = self.img_size_path(key, path, ext)
+            image = PIL.Image.open(image_io)
+            w, h = image.size
+            if key == 'l':
+                setattr(getattr(self, field_name), 'name', path)
+            if key == 'l' and ext in ['gif']:
+                default_storage.save(settings.MEDIA_ROOT + path, image_io)
+            else:
+                img_convert, img_format = self.ext_convert(ext)
+                image = image.convert(img_convert)
+                if key == 'l' or size <= prev_w:
+                    image.thumbnail((size, size), PIL.Image.ANTIALIAS)
+                    image.save(settings.MEDIA_ROOT + path, img_format)
+                    w, h = image.size
                 else:
-                    x = int(1200 * z)
-                    y = 1200
-                image = image.resize((x, y), resample=Image.LANCZOS)
-            
-                size = (1200, 1200)
-                if ext == 'png':
-                    background = Image.new("RGBA", size, (0,0,0,0))
-                else:
-                    background = Image.new("RGB", size, "WHITE")
-                    
-                background.paste(
-                    image, (int((size[0] - image.size[0]) / 2), int((size[1] - image.size[1]) / 2))
-                )
-                return background
+                    path = prev_path
+                    w,h = (prev_w, prev_h)
+            thmbs[key] = {
+                'url':path, 'path': settings.MEDIA_URL + path,
+                'w':w, 'h':h, 'ext':ext
+            }
+            prev_w, prev_h = (w,h)
+            prev_path = path
+        return thmbs
 
-            # CREATE IMAGES
-            for key, res in sizes:
-                img = Image.open(temp_img_path)
-                filename =  f'{path}/{name}_{key}.{ext}'
-                setattr(getattr(self, 'image_' + key ), 'name', filename)
-                
-                if key == 'sq':
-                    img = make_square(img, min_size=res)
-                else:
-                    img.thumbnail((res, res), Image.ANTIALIAS)
-                   
-                setattr(self, 'image_' + key + '_size', str(img.size[0]) + 'x' + str(img.size[1]))
-                setattr(self, 'image_' + key + '_url', filename)
-                img.save(settings.MEDIA_ROOT +  filename, quality=100)
-                img.close()
+    def get_thmbs(self, field):
+        thmbs_name =  field.name + '_thmb'
+        thmbs = getattr(self, thmbs_name)
+        if type(thmbs) == str:
+            thmbs = json.loads(thmbs.replace("'",'"'))
+        return thmbs, thmbs_name
 
-            # Remove temp file
-            try: os.remove(img_path)
-            except: pass
-            try: os.remove(temp_img_path)
-            except: pass
+    def save(self):
+        for field in self._meta.get_fields():
+            if field.get_internal_type() == 'FileField':
+                image_field = getattr(self, field.name)
+                try: file = image_field.file
+                except: continue
+                thmbs, thmbs_name = self.get_thmbs(field)
+                try:    old_image = thmbs['l']['url']
+                except: old_image = None
+                if image_field.name is not None and image_field.name != old_image:
+                    ext = image_field.name.split('.')[-1].lower()
+                    image_io  = self.get_image_io(file, ext)
+                    self.delete_old(thmbs)
+                    image_field.delete(save=False)
+                    super(ModelImages, self).save()
+                    thmbs = self.make_thumbs(field.name, image_io, ext)
+                    setattr(self, thmbs_name, thmbs)
+        super(ModelImages, self).save()
 
-            fields = self._meta.get_fields()
-            # for i in fields:
-            #     print(i.get_internal_type())
-        self.regen = False
-        super(Images, self).save()
+    def clean(self):
+        for field in self._meta.get_fields():
+            if field.get_internal_type() == 'FileField':
+                filename = getattr(self, field.name).name
+                if filename:
+                    ext = filename.split('.')[-1]
+                    if ext not in ['jpg', 'jpeg', 'webp', 'png', 'gif', 'mp4']:
+                        raise ValidationError({field.name : f'Файл формата ."{ext}" не допустим для этого поля',})
 
-
+    def delete_old(self, thmbs):
+        if thmbs:
+            for image in thmbs.values():
+                if type(image) == dict:
+                    path = settings.MEDIA_ROOT + image['url']
+                    print(path)
+                    try: os.remove(path)
+                    except: pass
+        return {}
 
     def delete(self):
-        for key in ['l','s','xs','sq']:
-            path = getattr(self, 'image_' + key + '_url')
-            try:
-                os.remove(settings.MEDIA_ROOT + path)
-            except: pass
-        super(Images, self).delete()
+        for field in self._meta.get_fields():
+            if field.get_internal_type() == 'FileField':
+                image_field = getattr(self, field.name)
+                thmbs_name =  field.name + '_thmb'
+                thmbs =       getattr(self, thmbs_name)
+                self.delete_old(thmbs)
+        super(ModelImages, self).delete()
 
 
+class Image(ModelImages):
+    num =        models.PositiveIntegerField(default=0, verbose_name="№")
+    image =      models.FileField(max_length=1024, null=True, blank=True, verbose_name="Изображение")
+    image_thmb = JSONField(editable=True, null=True, blank=True, default=dict)
 
-
-
+    class Meta:
+        abstract = True
 
 
 

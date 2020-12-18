@@ -40,16 +40,7 @@ class NameSlug(models.Model):
         return self.name
 
     def save(self):
-        try:
-            translator = Translator()
-            translation = translator.translate(self.name, dest='en').text
-        except: 
-            translation = unidecode.unidecode(self.name)
-        self.slug = slugify(str(translation))
-        if hasattr(self, 'parent'):
-            if getattr(self, 'parent') != None:
-                self.slug = self.parent.slug + '_' + self.slug
-        self.slug = str(self.slug).replace('-','_')
+        self.slug = slugify(unidecode.unidecode(self.name))
         super(NameSlug, self).save()
 
 

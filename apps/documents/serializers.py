@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from apps.documents.models import Invoice, InvoiceProducts, InvoiceTemplate, PriceFormula, Incoterms
-from apps.financials.models import Company
+
 from django.utils.translation import gettext as _
 import json
 
@@ -10,11 +10,6 @@ class PriceFormulaSerializer(serializers.ModelSerializer):
         model = PriceFormula
         fields = ['pk', 'formula']
 
-
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = ['pk', 'organization']
 
 
 class IncotermsSerializer(serializers.ModelSerializer):
@@ -56,7 +51,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
     templates =   serializers.SerializerMethodField(label=_('Шаблоны'))
     price =       serializers.IntegerField(label=_('Формула цен'), read_only=True, source="price.pk")
     prices =      serializers.SerializerMethodField(label=_('Формулы цен'))
-    companies =   serializers.SerializerMethodField(label=_('Компании'))
     incoterms =   serializers.IntegerField(label=_('Инкотермс'),read_only=True, source="incoterms.pk")
     incotermses = serializers.SerializerMethodField(label=_('Компании'))
     products =  InvoiceProductSerializer(many=True, read_only=True)
@@ -67,7 +61,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
         fields = [
             'pk','invoices','code','date',
             'template','templates',
-            'exporter','importer','companies',
+            'exporter','importer',
             'incoterms','incotermses',
             'price','prices',
             'products'
@@ -81,9 +75,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
 
     def get_prices(self, object):
         return json.loads(json.dumps(PriceFormulaSerializer(PriceFormula.objects.all(), many=True).data))
-
-    def get_companies(self, object):
-        return json.loads(json.dumps(CompanySerializer(Company.objects.all(), many=True).data))
 
     def get_incotermses(self, object):
         return json.loads(json.dumps(IncotermsSerializer(Incoterms.objects.all(), many=True).data))

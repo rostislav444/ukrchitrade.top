@@ -1,0 +1,10 @@
+<div class="characteristics">
+    <ul>
+        {% for characteristic in product.characteristics.all %}
+            <li>
+                <p><span>{{ characteristic.name }}</span></p>
+                <p>{{ characteristic.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

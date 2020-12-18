@@ -1,0 +1,112 @@
+{% extends './profile.html' %}
+
+{% block profile %}
+<div class="personal__info">
+    <p class="title1">Личные данные</p>
+    <ul>
+        <li class="block user__personal-info">
+            <p class="title2">Личные данные</p>
+            <form action="" class="form">
+                <div>
+                    <label for="">Фамилия</label>
+                    <p>
+                        <input type="text" value="{{ user.surname }}">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Имя</label>
+                    <p>
+                        <input type="text" value="{{ user.name }}"">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Отчество</label>
+                    <p>
+                        <input type="text" value="{{ user.patronymic }}">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Дата рождения</label>
+                    <p>
+                        <input type="date" value="">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Пол</label>
+                    <p>
+                        <select name="language" id="">
+                            <option value="male">М</option>
+                            <option value="female">Ж</option>
+                        </select>
+                    </p>
+                </div>
+                
+                <div>
+                    <label for="">Язык на сайте</label>
+                    <p>
+                        <select name="language" id="">
+                            <option value="ru">RU</option>
+                            <option value="ru">UA</option>
+                            <option value="ru">EN</option>
+                        </select>
+                    </p>
+                </div>
+            </form>
+        </li>
+        <li class="block user__contacts">
+            <p class="title2">Контакты</p>
+            <form action="" class="form">
+                <div>
+                    <label for="">Фамилия</label>
+                    <p>
+                        <input type="text" value="{{ user.surname }}">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Имя</label>
+                    <p>
+                        <input type="text" value="{{ user.name }}"">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Отчество</label>
+                    <p>
+                        <input type="text" value="{{ user.patronymic }}">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Дата рождения</label>
+                    <p>
+                        <input type="date" value="">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Пол</label>
+                    <p>
+                        <select name="language" id="">
+                            <option value="male">М</option>
+                            <option value="female">Ж</option>
+                        </select>
+                    </p>
+                </div>
+                
+                <div>
+                    <label for="">Язык на сайте</label>
+                    <p>
+                        <select name="language" id="">
+                            <option value="ru">RU</option>
+                            <option value="ru">UA</option>
+                            <option value="ru">EN</option>
+                        </select>
+                    </p>
+                </div>
+        </li>
+        <li class="block delivery_adress">
+            
+        </li>
+        <li class="block login">
+            
+        </li>
+    </ul>
+</div>
+{% endblock %}

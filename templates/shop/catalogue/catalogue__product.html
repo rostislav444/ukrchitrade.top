@@ -1,0 +1,50 @@
+{% load static %}
+<div class="catalogue__product">
+    <div class="image">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{{ product.images.all.0.image_thmb.l.path }}" alt="">
+        </a>
+    </div>
+    <div class="info">
+        <div class="top">
+            {% if product.reviews.all|length %}
+                <div class="reviews">
+                    <div class="stars">
+                        <img src="{% static 'img/icons/star.png' %}" alt="*">
+                        <img src="{% static 'img/icons/star.png' %}" alt="*">
+                        <img src="{% static 'img/icons/star.png' %}" alt="*">
+                        <img src="{% static 'img/icons/star.png' %}" alt="*">
+                        <img src="{% static 'img/icons/star.png' %}" alt="*">
+                    </div>
+                    <p>3 отзыва</p>
+                </div>
+            {% endif %}
+            <p class="code">код: <span>{{ product.code }}</span></p>
+            
+        </div>
+        <p class="name">{{ product.name }}</p>
+        <div class="shop">
+            <div class="buy">
+                <div class="price">
+                    {% if product.get_price_old_ua > product.get_price_ua %}
+                        <p class="old_price">{{ product.get_price_old_ua }} грн.</p>
+                    {% endif %}
+                    <p class="current_price">{{ product.get_price_ua }} грн.</p>
+                </div>
+                <button>Купить</button>
+            </div>
+            
+            <form action="{% url 'user:wishlist_add' %}" method="POST" class="add_to_wishlist">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button><img src="{% static 'img/icons/heart-grey.png' %}" alt=""></button>
+            </form>
+            <form action="" method="POST" >
+                {% csrf_token %}
+                <input type="hidden" name="product_id">
+                <button><img src="{% static 'img/icons/compare-grey.png' %}" alt=""></button>
+            </form>
+        
+        </div>
+    </div>
+</div>

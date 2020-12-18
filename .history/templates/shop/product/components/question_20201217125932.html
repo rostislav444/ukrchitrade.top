@@ -1,0 +1,24 @@
+{% load static %<li>
+    <div class="review">
+        <div class="top_block">
+            <p class="name">{{ question.user.name }}{% if question.user.surname %}&nbsp;{{ question.user.surname }}{% endif %}</p>
+            <p class="date">{{ question.created }}</p>
+        </div>
+        <div class="text">
+            {{ question.text }}
+        </div>
+    </div>
+    {% if question.replys.all|length %}
+    <div class="replys">
+        {% for reply in question.replys.all %}
+            <div class="reply">
+                <div class="top_block">
+                    <p class="name">{{ reply.user.name }}{% if reply.user.surname %}&nbsp;{{ reply.user.surname }}{% endif %}</p>
+                    <p class="date">{{ reply.text }}</p>
+                </div>
+                <div class="text">{{ reply.text }}</div>
+            </div>
+        {% endofr %}
+    </div>
+    {% endif %}
+</li>

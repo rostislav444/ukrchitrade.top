@@ -1,0 +1,43 @@
+.form .fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+}
+.form .fields input, 
+.form .fields textarea, 
+.form .fields select, 
+.form .fields option {
+    padding: 16px 16px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 2px var(--clr-1-50);
+    transition: all 0.2s ease-in-out;
+}
+.form .fields > p input, 
+.form .fields > p textarea, 
+.form .fields > p select, 
+.form .fields > p option {
+    width: calc(100% - 32px);
+}
+
+.form .fields input:focus, 
+.form .fields textarea:focus, 
+.form .fields select:focus, 
+.form .fields option:focus {
+    box-shadow: inset 0 0 0 2px var(--clr-3);
+}
+.form .fields button {
+    padding: 16px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--clr-4-drk);
+    font-size: var(--h5);
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.form .fields button:hover {
+    background-color: var(--clr-3);
+    color: black;
+}

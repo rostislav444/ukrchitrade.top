@@ -1,0 +1,28 @@
+.profile {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    grid-gap: 48px;
+}
+.profile .hdng {
+    margin-top: 0;
+}
+.profile .navigation {
+    position: relative;
+    background-color: var(--clr-1-25);
+    border-radius: 16px;
+    padding: 32px;
+    min-height: 240px;
+}
+.profile .navigation li {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-gap: 32px;
+    justify-content: flex-start;
+    align-items: center;
+}
+.profile .navigation li img {
+    position: relative;
+    display: block;
+    width: 32px;
+    height: 32px;
+}

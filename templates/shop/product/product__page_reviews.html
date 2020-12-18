@@ -1,0 +1,49 @@
+{% load static %}<div class="reviews">
+    <input id="product_reviews"   name="review_action" type="radio" checked>
+    <input id="product_questions" name="review_action" type="radio">
+    <div class="navigation">
+        <!-- REVIEW -->
+        <label for="product_reviews" class="product_reviews">
+            <span class="product_reviews checkbox"></span>
+            <span class="title">Отзывы</span> 
+        </label>
+        <!-- QUESTION -->
+        <label for="product_questions" class="product_questions">
+            <span class="product_questions checkbox"></span>
+            <span class="title">Вопросы</span> 
+        </label>
+
+        <div class="button_wrapper">
+            <button class="product_reviews">Добавить отзыв</button>
+            <button class="product_questions">Задать вопрос</button>
+        </div>
+    </div>
+    {% include 'shop/product/components/comments.html' %}
+    <ul class="product_questions">
+        <li>
+            <div class="review">
+                <div class="top_block">
+                    <p class="name">Инакентий Петрович</p>
+                    <p class="date">10.02.2020</p>
+                </div>
+                <div class="text">Как пользоватся?</div>
+            </div>
+            <div class="replys">
+                <div class="reply">
+                    <div class="top_block">
+                        <p class="name">Василий Алексеевич</p>
+                        <p class="date">11.02.2020</p>
+                    </div>
+                    <div class="text">Надо прокипятить и просушить</div>
+                </div>
+                <div class="reply">
+                    <div class="top_block">
+                        <p class="name">Василий Алексеевич</p>
+                        <p class="date">11.02.2020</p>
+                    </div>
+                    <div class="text">Надо прокипятить и просушить</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

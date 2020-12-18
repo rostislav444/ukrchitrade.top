@@ -1,0 +1,13 @@
+<ul class="products">
+    {% for product in products %}
+    <li>
+        <div class="image">
+            <img src="{{ product.image }}" alt="">
+        </div>
+        <div class="data">
+            <p class="name">{{ product.name }}, {{ product.name }}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<ul class="categories"></ul>

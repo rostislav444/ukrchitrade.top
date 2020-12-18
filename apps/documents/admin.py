@@ -32,7 +32,7 @@ class InvoiceProductsInline(admin.TabularInline):
 class InvoiceAdmin(admin.ModelAdmin):
     inlines = [InvoiceProductsInline]
 
-    fields = ['code','date','price','exporter','importer','incoterms','template','file','total','total_words']
+    fields = ['code','date','price','incoterms','template','file','total','total_words']
     readonly_fields = ['total','total_words']
 
 

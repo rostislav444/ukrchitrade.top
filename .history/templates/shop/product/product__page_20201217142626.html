@@ -1,0 +1,119 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+   <link rel="stylesheet" href="{% static 'css/shop/ui/forms.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__galery.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__descriptions.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__comments.css' %}">
+   <link rel="stylesheet" href="{% static 'lib/swiper/swiper.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        {% include 'shop/product/components/breadcrumbs.html' %}
+    </div>
+    
+    <div class="product">
+     
+            {% include 'shop/product/product__main.html' %}
+      
+        <!-- DESCRIPTION -->
+        <div class="about">
+                <input type="radio" name="product_data_block" id="product_data_block_1" class="product_data_block" {% if not page %}checked{% endif %}>
+                <input type="radio" name="product_data_block" id="product_data_block_2" class="product_data_block" {% if page == 'characteristics' %}checked{% endif %}>
+                <input type="radio" name="product_data_block" id="product_data_block_3" class="product_data_block" {% if page == 'comments' %}checked{% endif %}>
+                <input type="radio" name="product_data_block" id="product_data_block_4" class="product_data_block" {% if page == 'questions' %}checked{% endif %}>
+                <input type="radio" name="product_data_block" id="product_data_block_5" class="product_data_block" {% if page == 'certificates' %}checked{% endif %}>
+                <div class="content">
+                    <nav>
+                        <ul>
+                            <a 
+                                href="{% url 'shop:product' product.category.slug product.slug product.pk %}" 
+                                data-id="product_data_block_1"
+                                class="product_data_block block_1">
+                                <li>Все о товаре</li>
+                            </a>
+                            <a 
+                                href="{% url 'shop:product' product.category.slug product.slug product.pk 'characteristics' %}" 
+                                data-id="product_data_block_2"
+                                class="product_data_block block_2">
+                                <li>Характеристики</li>
+                            </a>
+                            <a 
+                                href="{% url 'shop:product' product.category.slug product.slug product.pk 'comments' %}" 
+                                data-id="product_data_block_3"
+                                class="product_data_block block_3">
+                                <li>Отзывы ({{ product.comments.all|length }})</li>
+                            </a>
+                            <a 
+                                href="{% url 'shop:product' product.category.slug product.slug product.pk 'questions' %}" 
+                                data-id="product_data_block_1"
+                                class="product_data_block block_4">
+                                <li>Вопросы ({{ product.questions.all|length }})</li>
+                            </a>
+                            <a 
+                                href="{% url 'shop:product' product.category.slug product.slug product.pk 'certificates' %}" 
+                                data-id="product_data_block_5"
+                                class="product_data_block block_5">
+                                <li>Сертификаты</li>
+                            </a>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="data">
+                    <div class="content">
+                        {% include 'shop/product/pages/page__description.html' %}
+                        {% include 'shop/product/pages/page__certificates.html' %}
+                        {% include 'shop/product/pages/page__characteristics.html' %}
+                        {% include 'shop/product/pages/page__comments.html' %}
+                        {% include 'shop/product/pages/page__questions.html' %}
+                        {% include 'shop/product/pages/page__certificates.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+
+<script>
+var mySwiper = new Swiper('.galery_slider', {
+  loop: true,
+  pagination: {
+    el: '.swiper-pagination',
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+})
+</script>
+
+<script>
+    const qunatity = document.querySelector('.product_quantity')
+    console.log(qunatity);
+    document.querySelector('.add_to_cart').onclick = () => {
+        CartAdd(qunatity)
+    }
+
+    dataBlockInputs = document.querySelectorAll('input[name=product_data_block]')
+    dataBlockLinks = document.querySelectorAll('a.product_data_block')
+
+    for (let i = 0; i < dataBlockLinks.length; i++) {
+        let a = dataBlockLinks[i];
+        a.onclick = (e) => {
+            e.preventDefault()
+            input = dataBlockInputs.querySelector('#'+a.dataset.id)
+            input = true;
+            window.history.replaceState('','',a.href);
+        }
+    }
+</script>
+{% endblock %}

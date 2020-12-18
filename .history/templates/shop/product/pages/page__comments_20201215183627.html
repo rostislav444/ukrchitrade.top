@@ -1,0 +1,131 @@
+{% load static %}
+<div class="page page_comments product_data_block_3">
+    <div class="reviews">
+        <p class="title1">Отзывы наших клиентов</p>
+        <ul class="product_reviews">
+            <li>
+                <div class="review">
+                    <div class="top_block">
+                        <p class="name">Инакентий Петрович</p>
+                        <p class="date">10.02.2020</p>
+                    </div>
+                    <div class="stars">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                    </div>
+                    <div class="text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis beatae ducimus esse voluptatibus maiores possimus illum incidunt asperiores sapiente dolorum reiciendis delectus totam minus sint, culpa eum quo aspernatur repudiandae!
+                    </div>
+                    <div class="advantages">
+                        <p class="title">Преимущества</p>
+                        <p class="text">Текст</p>
+                    </div>
+                    <div class="disadvantages">
+                        <p class="title">Недостатки</p>
+                        <p class="text">Текст</p>
+                    </div>
+                </div>
+                <div class="replys">
+                    <div class="reply">
+                        <div class="top_block">
+                            <p class="name">Василий Алексеевич</p>
+                            <p class="date">11.02.2020</p>
+                        </div>
+                        <div class="text">Надо прокипятить и просушить</div>
+                    </div>
+                    <div class="reply">
+                        <div class="top_block">
+                            <p class="name">Василий Алексеевич</p>
+                            <p class="date">11.02.2020</p>
+                        </div>
+                        <div class="text">Надо прокипятить и просушить</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="review">
+                    <div class="top_block">
+                        <p class="name">Инакентий Петрович</p>
+                        <p class="date">10.02.2020</p>
+                    </div>
+                    <div class="stars">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                        <img src="{% static 'img/icons/star.png' %}" alt="">
+                    </div>
+                    <div class="text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis beatae ducimus esse voluptatibus maiores possimus illum incidunt asperiores sapiente dolorum reiciendis delectus totam minus sint, culpa eum quo aspernatur repudiandae!
+                    </div>
+                    <div class="advantages">
+                        <p class="title">Преимущества</p>
+                        <p class="text">Текст</p>
+                    </div>
+                    <div class="disadvantages">
+                        <p class="title">Недостатки</p>
+                        <p class="text">Текст</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="product_questions">
+            <li>
+                <div class="review">
+                    <div class="top_block">
+                        <p class="name">Инакентий Петрович</p>
+                        <p class="date">10.02.2020</p>
+                    </div>
+                    <div class="text">Как пользоватся?</div>
+                </div>
+                <div class="replys">
+                    <div class="reply">
+                        <div class="top_block">
+                            <p class="name">Василий Алексеевич</p>
+                            <p class="date">11.02.2020</p>
+                        </div>
+                        <div class="text">Надо прокипятить и просушить</div>
+                    </div>
+                    <div class="reply">
+                        <div class="top_block">
+                            <p class="name">Василий Алексеевич</p>
+                            <p class="date">11.02.2020</p>
+                        </div>
+                        <div class="text">Надо прокипятить и просушить</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="add_review">
+        <p class="title1">Есть что рассказать о товаре?</p>
+        {% if user.is_authenticated %}
+            <form action="{% url 'shop:comment_form' product.category.slug product.slug product.pk 'comment_form' %}" method="POST" class="form">
+                {% csrf_token %}
+                <select name="rate" id="" required>
+                    <option value="5" selected>Супер</option>
+                    <option value="4">Хорошо</option>
+                    <option value="3">Нормально</option>
+                    <option value="2">Плохо</option>
+                    <option value="1">Ужасно</option>
+                </select>
+                <input type="text" name="advantages"    placeholder="Преимущества">
+                <input type="text" name="disadvantages" placeholder="Недостатки">
+                <textarea name="text" id="" cols="30" rows="10" placeholder="Ваш отзыв *" required></textarea>
+                <button type="submit">Отправить комментарий</button>
+            </form>
+        {% else %}
+        <div class="auth_message">
+            <p class="text">Необходимо авторизоваться для того чтоб добавлять оставить комментарий</p>
+            <a class="btn-md login" href="">Вход в личный кабинет</a>
+            <a class="btn-md register" href="">Еще не зарегестрированы?</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    
+</div>

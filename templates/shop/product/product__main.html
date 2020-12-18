@@ -1,0 +1,73 @@
+{% load static %}<!-- MAIN -->
+<div class="main">
+    <div class="content">
+        {% include 'shop/product/components/galery.html' %}
+        <div class="info">
+            <div class="top_info">
+                <p class="in_stock">Есть в наличии</p>
+                <p class="code">Артикул: {{ product.code }}</p>
+            </div>
+            <p class="title">{{ product.name }}</p>
+            <div class="middle_info">
+                <div class="price">
+                    {% if  product.old_price > product.price %}
+                        <p class="old_price">{{ product.get_old_price_ua }} грн.</p>
+                    {% endif %}
+                    <p class="actual_price">{{ product.get_price_ua }} грн.</p>
+                </div>
+                <div class="actions">
+                    <form action="{% url 'user:wishlist_add' %}" method="POST" class="add_to_wishlist">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button><img src="{% static 'img/icons/heart-grey.png' %}" alt=""></button>
+                    </form>
+                    <form action="" method="POST" >
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id">
+                        <button><img src="{% static 'img/icons/compare-grey.png' %}" alt=""></button>
+                    </form>
+                </div>
+            </div>
+            <div class="action_buttons">
+                <div class="counter">
+                    <button class="action minus">-</button>
+                    <input  class="product_quantity" data-product_id="{{ product.pk }}" type="number" value="1" min="1" max="100">
+                    <button class="action plus">+</button>
+                </div>
+                <button class="add_to_cart">В корзину</button>
+                <button class="one_click">Купить водник клик</button>
+            </div>
+            <div class="whoosale_prices">
+                <p class="heading">Оптовые цены:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Мин. кол-во</td>
+                            <td>Цена</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if product.sm_price %}
+                            <tr>
+                                <td>{{ product.sm_start }} шт.</td>
+                                <td>{{ product.sm_price_ua }} грн.</td>
+                            </tr>
+                        {% endif %}
+                        {% if product.md_price %}
+                            <tr>
+                                <td>{{ product.md_start }} шт.</td>
+                                <td>{{ product.md_price_ua }} грн.</td>
+                            </tr>
+                        {% endif %}
+                        {% if product.bg_price %}
+                            <tr>
+                                <td>{{ product.bg_start }} шт.</td>
+                                <td>{{ product.bg_price_ua }} грн.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

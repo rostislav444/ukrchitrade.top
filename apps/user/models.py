@@ -54,7 +54,7 @@ class CustomUser(AbstractBaseUser):
     is_admin =        models.BooleanField(default=False)  
     is_active =       models.BooleanField(default=False)
     was_active =      models.BooleanField(default=False)
-    is_manager =        models.BooleanField(default=False)
+    is_manager =      models.BooleanField(default=False)
     is_client =       models.BooleanField(default=False)
         
     # DATETIME
@@ -84,6 +84,18 @@ class CustomUser(AbstractBaseUser):
         return self.is_admin
 
 
+
+class Wishlist(models.Model):
+    user =    models.ForeignKey(CustomUser,          on_delete=models.CASCADE, verbose_name='Пользователь', related_name='products')
+    product = models.ForeignKey('catalogue.Product', on_delete=models.CASCADE, verbose_name='Товар')
+    date =    models.DateTimeField(default=now)
+
+    class Meta:
+        ordering = ['-date']
+        unique_together = [['user', 'product']]
+
+    def __str__(self):
+        return ''
 
 
 

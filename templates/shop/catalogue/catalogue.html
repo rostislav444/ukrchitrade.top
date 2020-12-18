@@ -1,0 +1,152 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop/catalogue/catalogue.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/catalogue/catalogue__pricerange.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <!-- BREADCRUMBS -->
+    <div class="breadcrumbs">
+        <a href="/">
+            <img src="{% static 'img/icons/home.png' %}" alt="home-page">
+        </a>
+        <span class="slash">/</span>
+        {% for c in category.get_ancestors %}
+            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            <span class="slash">/</span>
+        {% endfor %}
+        <a href="{% url 'shop:catalogue' category=category.slug %}">{{ category.name }}</a>    
+    </div>
+
+    <!-- TITLE -->
+    <p class="hdng">
+        {% if not category %}Каталог{% else %}{{ category.name }} 
+        <span>({{ category.products_count }})</span>{% endif %}
+    </p>
+
+
+    <div class="catalogue">
+        <div class="filters">
+            {% include 'shop/catalogue/catalogue__filters.html' %}
+        </div>
+        <div class="products">
+            {% if category.get_children|length %}
+                <ul class="categories">
+                    {% for c in category.get_children %}
+                        {% if c.products_count > 0 %}
+                            <a href="{{ c.get_absolute_url }}">
+                                <li>{{ c.name }} ({{c.products_count}})</li>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="sort">
+                <select data-changed=false name="sort" id="">
+                    <option value="new" selected=true>Новинки</option>
+                    <option value="new">Популярные</option>
+                    <option value="price__gte">Цене по возрастанию</option>
+                    <option value="price__lte">Цене по убыванию</option>
+                </select>
+                <select data-changed=false name="show" id="">
+                    <option selected=true value="24">24</option>
+                    <option value="48">48</option>
+                    <option value="96">96</option>
+                </select>
+
+                <ul class="view">
+                    <li class="column"></li>
+                    <li class="grid"></li>
+                </ul>
+                
+            </div>
+            {% include 'shop/catalogue/catalogue__product__list.html' %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+<script async src="{% static 'js/shop/catalogue/pricerange.js' %}"></script>
+<script>
+    var url = "{% url 'shop:catalogue' category=category.slug %}"
+    var priceRangeDiv =    document.querySelector('.price-slider')
+    var filterParams =     document.querySelectorAll('.filter-param')
+
+   
+    function setPriceRange() {
+        priceRangeDiv.dataset.changed = true
+        priceRangeDiv.dataset.from = priceRangeDiv.querySelector('.from').value
+        priceRangeDiv.dataset.to =   priceRangeDiv.querySelector('.to').value
+    }
+
+
+    function getQueryParams() {
+        let queryParams = {}
+        let from = priceRangeDiv.querySelector('.from') 
+        let to = priceRangeDiv.querySelector('.to') 
+        if (from.value != from.min || to.value != to.max) {
+            queryParams['price'] = [priceRangeDiv.dataset.from, priceRangeDiv.dataset.to]
+        }
+        // if (priceRangeDiv != undefined && priceRangeDiv.dataset.changed == "true") {
+           
+        // }
+        for (let input of filterParams) {
+            if (input.checked) {
+                let group = input.dataset.group
+                let value = input.dataset.value
+                if(queryParams[group] == undefined) {
+                    queryParams[group] = [value]
+                } else {
+                    queryParams[group].push(value)
+                }
+            }
+        }
+        return queryParams
+    }
+
+
+    function createUrlParams(queryParams) {
+        let params = ''
+        for (let group in queryParams) {
+            params += group + '=' + queryParams[group].join(',') + '/'
+        }
+        return params
+    } 
+
+
+    function cataloguePostRequest(params) {
+        if (params.length > 0) {
+            window.location.href = url + '/filter/' + params
+        } else {
+            window.location.href = url
+        }
+    }
+
+        
+    for (let input of document.querySelectorAll('.price_range, .filter-param')) {
+        input.onchange = () => { 
+            if (input.classList.contains('price_range')) {
+                setPriceRange()
+            }
+            let queryParams = getQueryParams()
+            let params = createUrlParams(queryParams)
+            cataloguePostRequest(params) 
+        }
+    }
+
+    
+    
+   
+
+    
+
+
+</script>
+{% endblock %}

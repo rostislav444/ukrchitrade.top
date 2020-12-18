@@ -1,0 +1,130 @@
+{% extends 'shop/base.html' %}{% load static %}
+<!-- LINKS -->
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop/home.css' %}">
+{% endblock %}
+<!-- CONTENT -->
+{% block content %}
+<div class="home">
+    <div class="slider content">
+        <!-- Slider main container -->
+        <div class="swiper-container home-slider">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide slide">
+                    <div class="data">
+                        <div class="text">
+                            <p class="heading">Заголовок слайда</p>
+                            <p class="description h3">Описание слайда</p>
+                        </div>
+                        <a href="" class="link">Ссылка</a>
+                    </div>
+                </div>
+                <div class="swiper-slide slide">
+                    <div class="data">
+                        <div class="text">
+                            <p class="heading">Заголовок слайда</p>
+                            <p class="description h3">Описание слайда</p>
+                        </div>
+                        <a href="" class="link">Ссылка</a>
+                    </div>
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- If we need navigation buttons -->
+            <div class="navigation">
+                <div class="nav-btn-prev nav-btn">
+                    <img src="{% static 'img/icons/arrow-white-left.png' %}" alt="<">
+                </div>
+                <div class="nav-btn-next nav-btn">
+                    <img src="{% static 'img/icons/arrow-white-right.png' %}" alt=">">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popular-categories content">
+        <p class="hdng">Популярные категории</p>
+        <ul class="popular-categories__list">
+            <li>
+                <p>Категория 1</p>
+                <img src="{% static 'img/glases.png' %}" alt="">
+            </li>
+            <li>
+                <p>Категория 2</p>
+                <img src="{% static 'img/glases.png' %}" alt="">
+            </li>
+            <li>
+                <p>Категория 3</p>
+                <img src="{% static 'img/glases.png' %}" alt="">
+            </li>
+            <li>
+                <p>Категория 4</p>
+                <img src="{% static 'img/glases.png' %}" alt="">
+            </li>
+            <li>
+                <p>Категория 5</p>
+                <img src="{% static 'img/glases.png' %}" alt="">
+            </li>
+        </ul>
+    </div>
+    <div class="products-slider products-discount content">
+        <p class="hdng">Товары со скидкой</p>
+       
+    </div>
+    <div class="products-slider products-top content">
+        <p class="hdng">ТОП продаж</p>
+       
+    </div>
+    <div class="consulatation">
+        <div class="content">
+            <div class="data">
+                <p class="heading">Нужна консультация?</p>
+                <p class="description">Оставьте свой номер телефона и наши специалисты проконсультируют Вас по любому вопросу</p>
+                <form action="">
+                    <input type="text" placeholder="+38 000 00-00-00">
+                    <button>Отправить</button>
+                </form>
+            </div>
+            <div class="image">
+                <img src="{% static 'img/prety-girl.png' %}" alt="prety-girl">
+            </div>
+        </div>
+    </div>
+    <div class="company-news">
+        <div class="content">
+            <p class="hdng">Новости Trimed</p>
+            <ul>
+                {% for i in "12" %}
+                    <li>
+                        <div class="image"></div>
+                        <div class="data">
+                            <p class="heading">Заголовок новости </p>
+                            <p class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam sequi obcaecati saepe praesentium laborum, voluptatum deleniti, consequuntur quod aliquid quam, facilis et repudiandae. Maiores ea adipisci excepturi incidunt magnam eum!</p>
+                            <a href="">Читатьи полностью</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+<!-- JS -->
+{% block js %}
+   
+    <script>
+        var homeSlider = new Swiper('.home-slider', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+                nextEl: '.nav-btn-next',
+                prevEl: '.nav-btn-prev',
+            },
+        })
+    </script>
+{% endblock %}

@@ -86,8 +86,6 @@ class Invoice(models.Model):
     code =      models.CharField(max_length=255, unique=True, verbose_name='Код')
     date =      models.DateField(verbose_name='Дата')
     price =     models.ForeignKey('documents.PriceFormula', on_delete=models.PROTECT)
-    exporter =  models.ForeignKey('financials.Company', blank=True, null=True, on_delete=models.PROTECT, related_name="exporter")
-    importer =  models.ForeignKey('financials.Company', blank=True, null=True, on_delete=models.PROTECT, related_name="importer")
     incoterms = models.ForeignKey(Incoterms, blank=True, null=True, on_delete=models.PROTECT, related_name="incoterms")
     template =  models.ForeignKey(InvoiceTemplate, on_delete=models.PROTECT, verbose_name='Шаблон')
     file =      models.FileField(blank=True, null=True)

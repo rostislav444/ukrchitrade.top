@@ -11,7 +11,6 @@ from datetime import datetime
 import pytz
 # app
 from apps.documents.models import *
-from apps.financials.models import *
 from apps.catalogue.models import Product
 from apps.catalogue.serilaizers import ProductSerializer
 # drf

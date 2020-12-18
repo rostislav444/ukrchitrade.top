@@ -1,0 +1,29 @@
+<div class="page page_description product_data_block_1">
+    <div class="main">
+        <div class="description">
+            <p class="title1">Описание</p>
+            <div class="reichtext">{{ product.description|safe }}</div>
+        </div>
+        <div class="characteristics">
+            <p class="title1">Характеристики</p>
+            <ul>
+                {% for characteristic in product.characteristics.all %}
+                    <li>
+                        <p><span>{{ characteristic.name }}</span></p>
+                        <p>{{ characteristic.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="certificates">
+            <p class="title1">Сертификаты</p>
+            <ul>
+                <li></li>
+                <li></li>
+            
+            </ul>
+        </div>
+    </div>
+    {% include 'shop/product/components/comments__list.html' %}
+    {% include 'shop/product/components/questions__list.html' %}
+</div>

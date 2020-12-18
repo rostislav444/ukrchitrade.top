@@ -1,0 +1,29 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+   <link rel="stylesheet" href="{% static 'css/shop/ui/forms.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__galery.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__descriptions.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__comments.css' %}">
+   <link rel="stylesheet" href="{% static 'lib/swiper/swiper.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="breadcrumbs">
+            <a href="/">
+                <img src="{% static 'img/icons/home.png' %}" alt="home-page">
+            </a>
+            <span class="slash">/</span>
+            <a href="">Оформление заказа</a>    
+        </div>    
+    </div>
+    
+    
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

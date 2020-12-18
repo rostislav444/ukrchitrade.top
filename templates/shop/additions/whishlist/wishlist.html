@@ -1,0 +1,12 @@
+{% load static %}<div class="side_wishlist side_popup popup ">
+    <div class="head">
+        <p class="h4 title">Список желаний</p>
+        <div class="close" onclick="closeCart()">
+            <img class="close_img" src="{% static 'img/close.png' %}" alt="x">
+        </div>
+    </div>
+    <div class="body">
+       {% include 'shop/additions/whishlist/wishlist__body.html' %}
+    </div>
+    
+</div>

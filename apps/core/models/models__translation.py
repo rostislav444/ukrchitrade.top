@@ -1,10 +1,14 @@
+from django.apps import apps
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from django.utils.translation import get_language as lang
+from django.http import QueryDict
+
 from googletrans import Translator
 from textblob import TextBlob
 from project import settings
-from django.utils.translation import get_language as lang
-from django.http import QueryDict
-from django.apps import apps
+
 
 
 class Languages(models.Model):
@@ -117,9 +121,6 @@ class Translation(models.Model):
         query_dict.update(tr)
         return query_dict
 
-
-   
-
     def save(self):
         super(Translation, self).save()
         if self.translate_childs:
@@ -132,3 +133,19 @@ class Translation(models.Model):
                 child.save()
             self.translate_childs = False
             super(Translation, self).save()
+
+
+
+    def pre_delete(self, *args, **kwargs):
+        for tr in self.translation.all():
+            tr.delete()
+       
+
+
+
+@receiver(pre_delete)
+def process_pre_delete(sender, instance, **kwargs):
+    if hasattr(sender, 'pre_delete'):
+        instance.pre_delete()
+
+

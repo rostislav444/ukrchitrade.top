@@ -1,0 +1,11 @@
+.search_popup {
+    position: absolute;
+    height: auto;
+    margin: 0 auto;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    background-color: white;
+    min-height: 200px;
+    border: 2px solid salmon;
+    
+}

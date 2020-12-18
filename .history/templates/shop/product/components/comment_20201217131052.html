@@ -1,0 +1,45 @@
+{% load static %}<li>
+    <div class="review">
+        <div class="top_block">
+            <p class="name">{{ comment.user.name }}{% if comment.user.surname %}&nbsp;{{ comment.user.surname }}{% endif %}</p>
+            <p class="date">{{ comment.created }}</p>
+        </div>
+        <div class="stars">
+            <img src="{% if comment.rate > 0 %}{% static 'img/icons/star.png' %}{% else %}{% static 'img/icons/star_empty.png' %}{% endif %}" alt="*">
+            <img src="{% if comment.rate > 1 %}{% static 'img/icons/star.png' %}{% else %}{% static 'img/icons/star_empty.png' %}{% endif %}" alt="*">
+            <img src="{% if comment.rate > 2 %}{% static 'img/icons/star.png' %}{% else %}{% static 'img/icons/star_empty.png' %}{% endif %}" alt="*">
+            <img src="{% if comment.rate > 3 %}{% static 'img/icons/star.png' %}{% else %}{% static 'img/icons/star_empty.png' %}{% endif %}" alt="*">
+            <img src="{% if comment.rate > 4 %}{% static 'img/icons/star.png' %}{% else %}{% static 'img/icons/star_empty.png' %}{% endif %}" alt="*">
+        </div>
+        <div class="text">
+            {{ comment.text }}
+        </div>
+        <!-- ADVANTAGES -->
+        {% if comment.advantages %}
+            <div class="advantages">
+                <p class="title">Преимущества</p>
+                <p class="text">{{ comment.advantages }}</p>
+            </div>
+        {% endif %}
+        <!-- DISADVANTAGES -->
+        {% if comment.disadvantages %}
+            <div class="disadvantages">
+                <p class="title">Недостатки</p>
+                <p class="text">{{ comment.disadvantages }}</p>
+            </div>
+        {% endif %}
+    </div>
+    {% if comment.replys.all|length %}
+    <div class="replys">
+        {% for reply in comment.replys.all %}
+            <div class="reply">
+                <div class="top_block">
+                    <p class="name">{{ reply.user.name }}{% if reply.user.surname %}&nbsp;{{ reply.user.surname }}{% endif %}</p>
+                    <p class="date">{{ reply.text }}</p>
+                </div>
+                <div class="text">{{ reply.text }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</li>

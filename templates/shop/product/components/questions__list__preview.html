@@ -1,0 +1,19 @@
+<ul class="product_questions">
+    {% if product.questions.all|length %}
+        {% for question in product.questions.all %}
+            {% if forloop.counter <= 2 %}
+                {% include 'shop/product/components/question.html' %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Пока нету отзвов</p>
+    {% endif %}
+    {% if product.questions.all|length > 2 %}
+    <a 
+        href="{% url 'shop:product' product.category.slug product.slug product.pk 'questions' %}" 
+        data-id="product_data_block_4"
+        class="btn-md product_data_block bg-4 block_4">
+        Все вопросы ({{ product.questions.all|length }})
+    </a>
+    {% endif %}
+</ul>

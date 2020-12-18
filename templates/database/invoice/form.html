@@ -1,0 +1,23 @@
+{% load static %}
+
+
+<div class="popup__outer" id="invoice__popup">
+    <div class="popup__conteiner">
+        <span class="close" onclick="Close('invoice__popup')">
+            <img src="{% static 'img/close.png' %}" alt="x">
+        </span>
+        <div class="popup__wrapper invoice container" id="invoice_form">
+            <div class="preloader">loading...</div>
+        </div>
+    </div>
+</div>
+
+{% include 'database/invoice/tpl/tpl_invoice.html' %}
+
+
+
+<script>
+    const urlInvoiceUpdate = "{% url 'documents:invoice-update' %}"
+    const urlInvoicePrint = "{% url 'documents:invoice-print' %}"
+    const urlInvoiceGet = "{% url 'documents:invoice-get' %}"
+</script>

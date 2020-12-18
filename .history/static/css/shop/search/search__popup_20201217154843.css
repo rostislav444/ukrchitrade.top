@@ -1,0 +1,10 @@
+.search_popup {
+    position: absolute;
+    height: auto;
+
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    background-color: white;
+    min-height: 200px;
+    
+}

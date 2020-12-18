@@ -2,34 +2,29 @@ from project import settings
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django_datatables_view.base_datatable_view import BaseDatatableView
+from django.db.models import Q, Prefetch, Case, When, IntegerField, Count
+from django.db import connection
 from django.utils.html import escape
 from django.utils.translation import gettext as _
-from django.db import connection
 from django.utils.text import slugify
-from django.db.models import Q, Prefetch, Case, When, IntegerField,  Count
+from django.utils.translation import get_language as lang
+from django.template.defaultfilters import slugify
+from django.views.decorators.csrf import csrf_exempt
 # APPS
 from apps.core.functions.serializer import getSerializerLabels
-from apps.catalogue_filters.models import (
-    Attribute, AttributeValue, CategoryAttribute, CategoryAttributeValue, ProductAttribute,
-)
-from apps.catalogue.models import Product, Category
-from apps.catalogue.serilaizers import (
-    CategorySerializer, AttributeSerializer, AttributeValueSerializer, ProductSerializer,
-)
-from apps.documents.models import PriceFormula, Invoice, InvoiceTemplate
-from apps.financials.models import Company
+from apps.catalogue_filters.models import Attribute, AttributeValue, CategoryAttribute, CategoryAttributeValue, ProductAttribute
+from apps.catalogue.serilaizers import CategorySerializer, AttributeSerializer, AttributeValueSerializer, ProductSerializer
+from apps.documents.models import Product, Category, PriceFormula, Invoice, InvoiceTemplate
 from apps.documents.serializers import InvoiceSerializer
 # Django rest framework
 from rest_framework import routers, serializers, viewsets
 from rest_framework.fields import SerializerMethodField
-from django.views.decorators.csrf import csrf_exempt
 # libs
 from io import BytesIO
 from decimal import *
 from unidecode import unidecode
-from django.template.defaultfilters import slugify
 from datetime import datetime
-from django.utils.translation import get_language as lang
+
 
 #  glob Libs
 import json, io, xlsxwriter, zipfile, os
@@ -53,26 +48,6 @@ def catalogue(request, *args, **kwargs):
     categories = Category.objects.filter(**categoryQP)
 
     category = CategorySerializer(categories.first()).data
-    
-
-    # Products
-    # productQP =  Q()
-    # if params['categories']:
-    #     productQP |= Q(category__pk__in = params['categories'] )
-      
-    # if params['atributes']:
-    #     atributes = Attribute.objects.distinct().filter(values__in=params['atributes'])
-    #     for attr in atributes:
-    #         productQP |= Q(
-    #             product_attrs__attribute__pk = attr.pk, 
-    #             product_attrs__value__pk__in = params['atributes']
-    #         )
-           
-    
-
-    # q_objects = Q() # Create an empty Q object to start with
-    # for t in tags:
-    #     q_objects |= Q(tags__tag__contains=t) # 'or' the Q objects together
 
 
     # Attributes
@@ -99,7 +74,7 @@ def catalogue(request, *args, **kwargs):
         'formulas' : PriceFormula.objects.all(),
         'invoices' : Invoice.objects.all(),
         'invoice_templates' : InvoiceTemplate.objects.all(),
-        'companies' :  Company.objects.all(),
+       
         # 'context' : context
     }
 
@@ -142,13 +117,13 @@ def catalogue(request, *args, **kwargs):
         dump = json.dumps(response)
         return JsonResponse(dump, content_type='application/json', safe=False)
     else:
-        return render(request, 'catalogue/catalogue.html', args)
+        return render(request, 'database/catalogue.html', args)
 
 @csrf_exempt
 def product(request, id):
     args = {}
     args['product'] = Product.objects.get(pk=id)
-    return render(request, 'catalogue/product/product.html', args)
+    return render(request, 'database/product/product.html', args)
 
 
 

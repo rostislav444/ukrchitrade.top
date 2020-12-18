@@ -1,0 +1,59 @@
+.authentication .content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 160px;
+    min-height: 80vh;
+}
+.authentication .content .data > input[type="radio"] {
+    display: none;
+}
+.authentication .content .data .navigation {
+    position: relative;
+    display: inline-flex;
+    height: 48px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
+    background-color: var(--grey-light);
+}
+.authentication .content .data .navigation label {
+    position: relative;
+    padding: 0 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: grey;
+    
+    font-size: var(--h4);
+    cursor: pointer;
+}
+
+.authentication .content .forms {
+    width: 480px;
+    max-width: calc(100vw - 64px);
+    padding: 32px;
+    background-color: var(--clr-1-50);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-top-right-radius: 16px;
+}
+.authentication .content .forms .form_wrapper {
+    display: none;
+}
+
+.authentication input#authentication_login:checked ~ .forms .login,
+.authentication input#authentication_registration:checked ~ .forms .registration {
+    display: block;
+}
+.authentication input#authentication_login:checked ~ .navigation label.login,
+.authentication input#authentication_registration:checked ~ .navigation label.registration {
+    background-color: var(--clr-1-50);
+    color: var(--clr-1-drk);
+}
+.authentication .content .data .navigation label:hover {
+    background-color: var(--clr-1-50) !important;
+    color: var(--clr-1-drk) !important;
+}

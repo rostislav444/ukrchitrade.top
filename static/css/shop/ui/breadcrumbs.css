@@ -1,0 +1,28 @@
+.breadcrumbs {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 32px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+.breadcrumbs a,
+.breadcrumbs span {
+    font-size: var(--h6);
+}
+.breadcrumbs a {
+    color: grey;
+}
+.breadcrumbs .slash {
+    margin: 0 12px;
+    color: var(--clr-1);
+}
+.breadcrumbs img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    object-position: center;
+}

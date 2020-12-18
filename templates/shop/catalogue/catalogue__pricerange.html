@@ -1,0 +1,27 @@
+<div 
+    class="price-slider" 
+    data-changed="{% if price__gte > min_price or price__lte < max_price %}true{% else %}false{% endif %}"
+    data-from="{{ price__gte }}" 
+    data-to="{{ price__lte }}">
+    <span>
+        <span>От</span>
+        <input class="price_range from" type="number" value="{{ price__gte }}" min="{{ min_price }}" max="{{ max_price }}"/>
+        <span>до</span>
+        <input class="price_range to"   type="number" value="{{ price__lte }}" min="{{ min_price }}" max="{{ max_price }}"/>
+    </span>
+    <input class="price_range from" value="{{ price__gte }}"  min="{{ min_price }}" max="{{ max_price }}" step="1" type="range"/>
+    <input class="price_range to"   value="{{ price__lte }}"  min="{{ min_price }}" max="{{ max_price }}" step="1" type="range"/>
+</div>
+{% if min_price != max_price %}
+<ul class="scale">
+    
+    <li><p>{{ min_price }}</p></li>
+        
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    <li><p>{{ max_price }}</p></li>
+    
+</ul>
+{% endif %}

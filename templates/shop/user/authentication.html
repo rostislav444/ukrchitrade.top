@@ -1,0 +1,46 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+ 
+<link rel="stylesheet" href="{% static 'css/shop/user/authentication.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="authentication">
+    <div class="content">
+        <div class="data">
+            <input type="radio" id="authentication_login"    name="authentication" {% if page == 'login' or page == '' %}checked{% endif %}>
+            <input type="radio" id="authentication_registration" name="authentication" {% if page == 'registration' %}checked{% endif %}>
+            <div class="navigation">
+                <label class="login" for="authentication_login">Вход</label>
+                <label class="registration" for="authentication_registration">Регистрация</label>
+            </div>
+            <div class="forms">
+                <!-- Login -->
+                <div class="form_wrapper login">
+                    <p class="title1">Аторизация на сайте</p>
+                    <form class="form" action="{% url 'user:authentication' page='login' %}" method="POST" xmlns="http://www.w3.org/1999/html">
+                        {% csrf_token %}
+                        {{ forms.login.as_p }}
+                        <button type="submit">Войти</button>
+                    </form>
+                </div>
+                <!-- Register -->
+                <div class="form_wrapper registration">
+                    <p class="title1">Регистрация нового пользователя</p>
+                    <form class="form"  action="{% url 'user:authentication' page='registration' %}" method="POST">
+                        {% csrf_token %}
+                        {{ forms.registration.as_p }}
+                        <button type="submit">Зарегестрироватся</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

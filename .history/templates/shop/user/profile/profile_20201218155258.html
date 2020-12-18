@@ -1,0 +1,54 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop/user/profile/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="breadcrumbs">
+            <a href="/">
+                <img src="{% static 'img/icons/home.png' %}" alt="home-page">
+            </a>
+            <span class="slash">/</span>
+            <p>Кабинет пользователя</p>
+        </div>    
+    </div>
+    <div class="content">
+        <div class="profile">
+          <ul class="navigation">
+              <a href="">
+                <li>
+                    <img src="" alt="*">
+                    <p>Личная информация</p>
+                  </li>
+              </a>
+              <a href="">
+                <li>
+                    <img src="" alt="*">
+                    <p>Мои заказы</p>
+                  </li>
+              </a>
+              <a href="">
+                <li>
+                    <img src="" alt="*">
+                    <p>Список желаний</p>
+                  </li>
+              </a>
+             
+
+          </ul>
+          <div class="data">
+                {% block profile %}
+                {% endblock %}
+          </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

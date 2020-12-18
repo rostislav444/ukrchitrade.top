@@ -1,0 +1,1 @@
+# default_app_config = 'apps.catalogue_filters.apps.CatalogueFiltersConfig'

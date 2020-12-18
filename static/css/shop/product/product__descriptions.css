@@ -1,0 +1,57 @@
+
+
+.page_description {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    grid-gap: 40px;
+}
+.page_description .main > div {
+    margin-bottom: 32px;
+}
+
+/* CHARACTERISTICS */
+.characteristics ul,
+.characteristics ul li {
+    display: grid;
+    grid-gap: 16px;
+}
+.characteristics ul li {
+    grid-template-columns: repeat(2, 1fr);
+}
+.characteristics ul li p {
+    position: relative;
+}
+.characteristics ul li p span {
+    background-color: #e8f9fd;
+    z-index: 1;
+    display: inline-block;
+    position: relative;
+    padding: 0px 8px 0px 0px;
+}
+.characteristics ul li p:first-child::before {
+     content: "";
+     position: absolute;
+     height: 2px;
+     border-bottom: 2px dotted var(--clr-1);
+     width: 100%;
+     bottom: 4px;
+     z-index: 0;
+}
+/* END CHARACTERISTICS */
+.page_description .main .certificates ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-gap: 16px;
+}
+.page_description .main .certificates ul li {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border:2px solid #ededed;
+    padding-top: 133%;
+}
+/* CERTIFICATES */
+
+/* END CERTIFICATES */
+

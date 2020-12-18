@@ -6,7 +6,7 @@ app_name = 'catalogue'
 
 urlpatterns = [
     path('', views.catalogue, name="catalogue"),
-    re_path(r'^whoosale/(?P<size>small|middle|big|clean)/$', views.catalogue, name="whoosale"),
+    re_path(r'^(?P<size>small|middle|big|clean)/$', views.catalogue, name="whoosale"),
     path('export_excel/', views.export_excel, name="export_excel"),
     # re_path(r'^export_excel/(?P<price>\w+)?(/(?P<whoosale>small|middle|big)?)?', views.export_excel, name="export_excel"),
     path('product/<id>/', views.product, name="product"),

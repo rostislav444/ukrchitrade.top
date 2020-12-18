@@ -1,0 +1,23 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+   <link rel="stylesheet" href="{% static 'css/shop/ui/forms.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__galery.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__descriptions.css' %}">
+   <link rel="stylesheet" href="{% static 'css/shop/product/product__comments.css' %}">
+   <link rel="stylesheet" href="{% static 'lib/swiper/swiper.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        {% include 'shop/product/components/breadcrumbs.html' %}
+    </div>
+    
+    
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

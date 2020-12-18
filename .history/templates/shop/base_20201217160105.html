@@ -1,0 +1,161 @@
+{% load i18n %}{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIMED</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{% static 'css/core/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/core.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/ui/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/ui/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/ui/colors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/ui/breadcrumbs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/ui/elements.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/search/search__popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop/catalogue/catalogue__product.css' %}">
+    {% block links %}{% endblock %}
+</head>
+<body>
+    {% include 'shop/header.html' %}
+    {% include 'shop/search/search__popup.html' %}
+    <main>{% block content %}{% endblock %}</main>
+    <!-- CART -->
+    {% include 'shop/cart/cart.html' %}
+    <!-- WISHLIST -->
+    {% include 'shop/additions/whishlist/wishlist.html' %}
+    <!-- COMPARE -->
+    <!-- --- -->
+    <!-- WATCHLIST -->
+    <div class="watchlist_wrapper content">
+        <p class="hdng">Просмотренные товары</p>
+        <div class="watchlist swiper-container">
+            <div class="swiper-wrapper watchlist_products">
+               <!-- PRODUCTS LIST INSERT -->
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+    <div class="popupouter"></div>
+    <footer></footer>
+    {% csrf_token %}
+    <!-- JS -->
+    <script>
+        const cartUrls = {
+            cart_add :    "{% url 'cart:add' %}",
+            cart_remove : "{% url 'cart:remove' %}",
+            cart_clear :  "{% url 'cart:clear' %}",
+        }
+    </script>
+    <script>
+        const body = document.querySelector('body')
+        const cart = document.querySelector('.cart')
+        const side_cart = document.querySelector('.side_cart')
+        const side_cart_products = document.querySelector('.side_cart_products')
+        const wishlist = document.querySelector('.wishlist')
+        const side_wishlist = document.querySelector('.side_wishlist')
+        const popupouter = document.querySelector('.popupouter')
+        
+
+        function popupOpen(popup) {
+            body.style.overflow = 'hidden'
+            popupouter.classList.add('active')
+            popup.classList.add('active')
+        }
+        function popupClose() {
+            body.style.overflow = 'auto'
+            popupouter.classList.remove('active')
+            for (let popup of document.querySelectorAll('.popup.active')) {
+                popup.classList.remove('active')
+            }
+           
+        }
+        popupouter.onclick = () => {
+            popupClose()
+        }
+        // CART
+        function openCart() {
+            popupOpen(side_cart)
+            side_cart.classList.add('active')
+        }
+        function closeCart() {
+            popupClose()
+        }
+        cart.onclick = () => openCart()
+
+        // WISHLIST
+        function OpenWishlist() {
+            console.log(side_wishlist);
+            popupOpen(side_wishlist)
+            side_wishlist.classList.add('active')
+        }
+        
+        wishlist.onclick = () => OpenWishlist()
+
+
+
+    </script>
+    <script src="{% static 'lib/xhr.js' %}"></script>
+    <script src="{% static 'lib/form_serialize.js' %}"></script>
+    <script src="{% static 'js/shop/cart.js' %}"></script>
+    <script src="{% static 'js/shop/counter.js' %}"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    
+    <script>
+        const wishlist_url = "{% url 'user:wishlist' %}"
+        const watchlist_url = "{% url 'shop:watchlist' %}"
+        var addToWishListForm = document.querySelectorAll('.add_to_wishlist, .remove_from_wishlist') 
+
+        function WishlistGet(data, show=false) {
+            let html =     data['html']
+            let length =   data['length']
+            let body =     side_wishlist.querySelector('.body')
+            let quantity = wishlist.querySelector('.quantity')
+                
+            if (show) { OpenWishlist() }
+            if (length > 0) {
+                quantity.innerHTML = length
+                quantity.classList.add('active')
+            } else {
+                quantity.classList.remove('active')
+                if (length == 0) {
+                    popupClose()
+                }
+            }
+            
+            WishlistInnit()
+        }
+
+        function WishlistInnit() {
+            addToWishListForm = document.querySelectorAll('.add_to_wishlist, .remove_from_wishlist') 
+            for (let form of addToWishListForm) {
+                form.onsubmit = (e) => {
+                    e.preventDefault()
+                    let data = serialize(form)
+                    data.ajax = true
+                    data = JSON.stringify(data)
+                    XHR('POST', form.action, data, WishlistGet, params={show : true})
+                }
+            }
+        }
+       
+        XHR('GET', wishlist_url, {},  WishlistGet)
+
+
+    </script>
+
+    {% block js %}{% endblock %}
+    <!-- WATCHLIST -->
+    <script async src="{% static 'js/shop/watchlist.js' %}"></script>
+    <!-- SEARCH -->
+    <script async src="{% static 'js/shop/search.js' %}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,14 @@
+<ul class="product_reviews">
+    {% if product.comments.all|length %}
+        {% for comment in product.comments.all %}
+            {% if forloop.counter <= 2 %}
+                {% include 'shop/product/components/comment.html' %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Пока нету отзвов</p>
+    {% endif %}
+    {% if product.comments.all|length > 2 %}
+    <a href="{% url 'shop:product' product.category.slug product.slug product.pk 'comments' %}" class="product_data_block block_3">Все комментарии</a>
+    {% endif %}
+</ul>

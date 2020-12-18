@@ -1,0 +1,37 @@
+{% load static %}
+
+{% with product=product.product %}
+<div class="catalogue__product">
+    <div class="image">
+        <a href="{{ product.product.get_absolute_url }}">
+            <img src="{{ product.images.all.0.image_thmb.l.path }}" alt="">
+        </a>
+    </div>
+    <div class="info">
+        <p class="name">{{ product.name }}</p>
+        <div class="shop">
+            <div class="buy">
+                <div class="price">
+                    {% if product.get_price_old_ua > product.get_price_ua %}
+                        <p class="old_price">{{ product.get_price_old_ua }} грн.</p>
+                    {% endif %}
+                    <p class="current_price">{{ product.get_price_ua }} грн.</p>
+                </div>
+                <button onclick="CartAddID('{{ product.id }}')">Купить</button>
+            </div>
+            <form action="{% url 'user:wishlist_remove' %}" method="POST" class="remove_from_wishlist">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button class="action">
+                    <img src="{% static 'img/icons/heart-red.png' %}" alt="like">
+                </button>
+            </form>
+            
+            <button class="action">
+                <img src="{% static 'img/icons/compare-grey.png' %}" alt="compare">
+            </button>
+        
+        </div>
+    </div>
+</div>
+{% endwith %}

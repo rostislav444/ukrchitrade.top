@@ -1,0 +1,21 @@
+{% load static %}<div class="side_cart side_popup popup">
+    <div class="head">
+        <p class="h4 title">Корзина</p>
+        <div class="close" onclick="closeCart()">
+            <img class="close_img" src="{% static 'img/close.png' %}" alt="x">
+        </div>
+    </div>
+    <div class="body">
+        <ul class="side_cart_products">
+            {% include 'shop/cart/cart_products.html' %}
+        </ul>
+    </div>
+    <div class="bottom">
+        <p class="total">
+            <span>Всего: </span>
+            <span class="cart_total">{{ cart.total }}</span>
+            <span> грн</span>
+        </p>
+        <a href="/">оформить заказ</a>
+    </div>
+</div>

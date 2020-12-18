@@ -1,0 +1,9 @@
+<ul class="product_questions">
+    {% if product.questions.all|length %}
+        {% for question in product.questions.all %}
+            {% include 'shop/product/components/question.html' %}
+        {% endfor %}
+    {% else %}
+        <p>Пока нету вопросов</p>
+    {% endif %}
+</ul>

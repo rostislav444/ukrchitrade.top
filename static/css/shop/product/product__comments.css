@@ -1,0 +1,156 @@
+/* PRODUCT REVIEWS */
+.reviews input[name='review_action'] {
+    display: none;
+}
+
+/* PRODUCT REVIEWS NAVIGATION */
+.reviews .navigation {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+    grid-gap: 16px;
+    margin-bottom: 32px;
+}
+.reviews .navigation .button_wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+.reviews .navigation .button_wrapper button {
+    display: none;
+    padding: 0px 20px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--h5);
+    font-weight: 700;
+    cursor: pointer;
+}
+.reviews .navigation .button_wrapper button.product_reviews {
+    background-color: var(--clr-1);
+}
+.reviews .navigation .button_wrapper button.product_questions {
+    background-color: var(--clr-4-drk);
+}
+.reviews .navigation label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+.reviews .navigation label .checkbox {
+    content: "";
+    position: relative;
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background-color: white;
+    margin-right: 12px;
+}
+/* END PRODUCT REVIEWS NAVIGATION */
+
+/* PRODUCT REVIEWS LIST */
+.reviews ul {
+    display: none;
+}
+.reviews ul li .replys {
+    border-left: 4px solid var(--clr-1);
+}
+.reviews ul li .reply,
+.reviews ul li .review {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: white;
+    padding: 20px;
+    border: 2px solid var(--clr-1-50);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.reviews ul li .reply {
+    margin-left: 24px;
+}
+.reviews ul li  .top_block {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+
+}
+.reviews ul li .top_block .name {
+    font-weight: 700;
+}
+.reviews ul li .top_block .date {
+    font-size: var(--h6);
+    color: grey;
+}
+.reviews ul li .stars {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.reviews ul li .stars img {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+.reviews ul li .title {
+    margin-top: 16px;
+    font-weight: 700;
+    font-size: var(--h6);
+}
+.reviews ul li .text {
+    font-size: var(--h6);
+    margin-top: 4px;
+}
+/* END PRODUCT REVIEWS LIST */
+
+.reviews input#product_reviews:checked ~   .navigation label.product_reviews span.title,
+.reviews input#product_questions:checked ~ .navigation label.product_questions span.title  {
+    font-weight: 700;
+} 
+.reviews input#product_reviews:checked ~   .navigation .product_reviews .checkbox,
+.reviews input#product_questions:checked ~ .navigation .product_questions .checkbox {
+    background-color: var(--clr-1);
+} 
+.reviews input#product_reviews:checked ~   .navigation button.product_reviews,
+.reviews input#product_questions:checked ~ .navigation button.product_questions  {
+    display: flex;
+} 
+
+.page_comments ul.product_reviews,
+.page_questions ul.product_questions,
+.reviews input#product_reviews:checked ~ ul.product_reviews,
+.reviews input#product_questions:checked ~ ul.product_questions {
+    display: grid;
+}
+
+/* END PRODUCT REVIEWS */
+
+/* COMMENTS PAGE */
+
+.page_comments,
+.page_questions {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    grid-gap: 48px;
+}
+.page_questions .form,
+.page_comments .form {
+    margin-bottom: 32px;
+}
+
+.page_comments .form .heading {
+    font-size: var(--h4);
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+

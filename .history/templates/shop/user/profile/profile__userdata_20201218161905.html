@@ -1,0 +1,73 @@
+{% extends './profile.html' %}
+
+{% block profile %}
+<div class="personal__info">
+    <p class="title1">Личные данные</p>
+    <ul>
+        <li class="block user__personal-info">
+            <p>Личные данные</p>
+            <form action="">
+                <div>
+                    <label for="">Фамилия</label>
+                    <p>
+                        <input type="text" placeholder="{{ user.surname }}">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Имя</label>
+                    <p>
+                        <input type="text" placeholder="{{ user.name }}"">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Отчество</label>
+                    <p>
+                        <input type="text" placeholder="{{ user.patronymic }}">
+                    </p>
+                </div>
+                <div>
+                    <label for="">дата рождения</label>
+                    <p>
+                        <input type="date" placeholder="">
+                    </p>
+                </div>
+                <div>
+                    <label for="">Язык</label>
+                    <p>
+                        <input type="text" placeholder="">
+                    </p>
+                </div>
+               
+               
+               
+Николаев
+
+
+Ростислав
+
+Отчество
+Не указано
+
+Дата рождения
+20 июля 1992
+
+Пол
+Мужской
+
+Язык общения с Rozetka
+Русский
+
+            </form>
+        </li>
+        <li class="block user__contacts">
+            
+        </li>
+        <li class="block delivery_adress">
+            
+        </li>
+        <li class="block login">
+            
+        </li>
+    </ul>
+</div>
+{% endblock %}

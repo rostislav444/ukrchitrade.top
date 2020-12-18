@@ -1,0 +1,50 @@
+<div class="page page_questions product_data_block_4">
+  
+    <div class="reviews">
+        <p class="title1">Отзывы наших клиентов</p>
+        <ul class="product_questions">
+            <li>
+                <div class="review">
+                    <div class="top_block">
+                        <p class="name">Инакентий Петрович</p>
+                        <p class="date">10.02.2020</p>
+                    </div>
+                    <div class="text">Как пользоватся?</div>
+                </div>
+                <div class="replys">
+                    <div class="reply">
+                        <div class="top_block">
+                            <p class="name">Василий Алексеевич</p>
+                            <p class="date">11.02.2020</p>
+                        </div>
+                        <div class="text">Надо прокипятить и просушить</div>
+                    </div>
+                    <div class="reply">
+                        <div class="top_block">
+                            <p class="name">Василий Алексеевич</p>
+                            <p class="date">11.02.2020</p>
+                        </div>
+                        <div class="text">Надо прокипятить и просушить</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="add_review">
+        <p class="title1">Хотите узнать больше информации?</p>
+        {% if user.is_authenticated %}
+            <form action="{% url 'shop:question_form' product.category.slug product.slug product.pk 'question_form' %}" method="POST" class="form">
+                {% csrf_token %}
+              
+                <textarea name="" id="" cols="30" rows="10" placeholder="Напишите Ваш вопрос здесь" required></textarea>
+                <button type="submit">Задать вопрос</button>
+            </form>
+        {% else %}
+        <div class="auth_message">
+            <p class="text">Необходимо авторизоваться для того чтоб добавлять оставить комментарий</p>
+            <a class="btn-md login" href="">Вход в личный кабинет</a>
+            <a class="btn-md register" href="">Еще не зарегестрированы?</a>
+        </div>
+        {% endif %}
+    </div>
+</div>

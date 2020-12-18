@@ -1,0 +1,9 @@
+.profile {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    grid-gap: 48px;
+}
+.profile .navigation {
+    background-color: var(--clr-25);
+    border-radius: 16px;
+}

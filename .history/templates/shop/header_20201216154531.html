@@ -1,0 +1,101 @@
+{% load static %}<header>
+    <div class="content first-line">
+        <a href="/">
+            <img src="{% static 'img/logo.png' %}" alt="TRIMED" class="logo">
+        </a>
+        <ul class="menu">
+            
+            <li>
+                <span>O компании</span>
+                <ul>
+                    <li>О нас</li>
+                    <li>Контакты</li>
+                    <li>Сотрудничество</li>
+                    <li>Новости</li>
+                </ul>
+            </li>
+            <li>
+                <span>Опт</span>
+                <ul>
+                    <li>Условия сотрудничества</li>
+                    <li>Регистрация партнера</li>
+                    <li>Поис продукции под заказа</li>
+                </ul>
+            </li>
+            <li>
+                <span>Клиентам</span>
+                <ul>
+                    <li>Доставка</li>
+                    <li>Оплата</li>
+                    <li>Карантия</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="phone">
+            <a href="tel:+0800000000">
+                <img src="{% static 'img/icons/phone.png' %}" alt="phone">
+                <span>0 800 000 000</span>
+            </a>
+        </div>
+        <div class="user">
+            <a class="image" href="{% if user.is_authenticated %}{% else %}{% endif %}">
+                <img src="{% static 'img/icons/user.png' %}" alt="phone">
+            </a>
+            <div class="data">
+                <p class="greeting">Здравствуйте, {% if user.is_authenticated %} {{ user.name }}{% endif %}</p>
+                {% if user.is_authenticated %}
+                    <a href="/">Войти в кабинет</a>
+                {% else %}
+                <p>
+                    <a href="/">Вход</a>
+                    <span>/</span>
+                    <a href="{% url 'user:authentication' с%}">Регистрация</a>
+                </p>
+                    
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="second-line">
+        <div class="content">
+            <div class="catalogue">
+                <div class="burger">
+                    <div class="lines">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <p>Каталог</p>
+                </div>
+                {% include 'shop/nav-menu.html' %}
+                
+            </div>
+            <div class="slash"></div>
+            <div class="language">
+                <select name="" id="">
+                    <option value="ru" selected>ru</option>
+                    <option value="en" selected>en</option>
+                    {% for langage in languages %}
+                        <option value="{{ langage }}">{{ langage }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <form class="search" action="">
+                <input type="search" placeholder="Поиск товаров на сайте ">
+            </form>
+            <div class="icon actions">
+                <a  class="compare">
+                    <img src="{% static 'img/icons/compare.png' %}" alt="">
+                </a>
+                <a class="icon wishlist">
+                    <img src="{% static 'img/icons/wishlist.png' %}" alt="">
+                    <p class="quantity {% if wishlist|length %}active{% endif %}">{{ wishlist|length }}</p>
+                </a>
+                <a class="icon cart">
+                    <img src="{% static 'img/icons/cart.png' %}" alt="">
+                    <p class="quantity {% if cart.quantity > 0 %}active{% endif %}">{{ cart.quantity }}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

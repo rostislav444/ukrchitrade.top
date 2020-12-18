@@ -14,6 +14,7 @@ class UserAuthentication(object):
 
 
     def get_user(self, user_id):
+        print('qweqwe')
         try:
             return CustomUser.objects.get(pk=user_id)
         except CustomUser.DoesNotExist:

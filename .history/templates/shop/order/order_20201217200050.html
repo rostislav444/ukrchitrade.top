@@ -1,0 +1,56 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop/order/order.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="breadcrumbs">
+            <a href="/">
+                <img src="{% static 'img/icons/home.png' %}" alt="home-page">
+            </a>
+            <span class="slash">/</span>
+            <p>Оформление заказа</p>
+        </div>    
+    </div>
+    <div class="content">
+        <div class="order_page">
+            <div class="hdng">Оформление заказа</div>
+            <ul class="products__list side_cart_products">
+                {% for product in cart.products %}
+                    <li>
+                        <div class="image_wrapper">
+                            <div class="image" style="background-image: url({{ product.image }});">
+                            <p class="remove close" onclick="CartRemoveID({{ product.id }})">
+                                <img class="close_img" src="{% static 'img/close.png' %}" alt="x">
+                            </p>
+                        </div>
+                        </div>
+                        <div class="data">
+                            <p class="name">{{ product.name }}</p>
+                            <div class="quantity">
+                                <div class="counter">
+                                    <button class="action minus">-</button>
+                                    <input  class="product_quantity" data-cart-update="true" data-product_id="{{ product.id }}" value="{{ product.quantity }}" type="number" value="1" min="1" max="100">
+                                    <button class="action plus">+</button>
+                                </div>
+                            </div>
+                            <p class="price">{{ product.price }} грн</p>
+                            <p class="total">{{ product.total }} грн</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="delivery"></div>
+            <div class="payment"></div>
+        </div>
+    </div>
+    
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends './profile.html' %}
+
+{% block profile %}
+<div class="personal__info">
+    <p class="title1">Личные данные</p>
+    <ul>
+        <li class="block user__personal-info">
+            <p class="title2">Личные данные</p>
+            <form action="" class="form">
+                <div class="fields">
+                    <div>
+                        <label for="">Фамилия</label>
+                        <p>
+                            <input type="text" value="{{ user.surname }}" readonly>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Имя</label>
+                        <p>
+                            <input type="text" value="{{ user.name }}"" readonly>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Отчество</label>
+                        <p>
+                            <input type="text" value="{{ user.patronymic }}" readonly>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Дата рождения</label>
+                        <p>
+                            <input type="date" value="" readonly>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Пол</label>
+                        <p>
+                            <select name="language" id="" readonly>
+                                <option value="male">М</option>
+                                <option value="female">Ж</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Язык на сайте</label>
+                        <p>
+                            <select name="language" id="" readonly>
+                                <option value="ru">RU</option>
+                                <option value="ru">UA</option>
+                                <option value="ru">EN</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                <button type="submit">Обновить</button>
+            </form>
+        </li>
+        <li class="block user__contacts">
+            <p class="title2">Контакты</p>
+            <form action="" class="form">
+                <div class="fields">
+                    <div>
+                        <label for="">Номер телефона</label>
+                        <p>
+                            <input type="text" value="{{ user.phone }}">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Электронная почта</label>
+                        <p>
+                            <input type="text" value="{{ user.email }}"">
+                        </p>
+                    </div>
+                </div>
+               
+                <button type="submit">Обновить</button>
+            </form>
+                
+        </li>
+        <li class="block delivery_adress">
+            <p class="title2">Адреса доставки</p>
+            <form action="" class="form select_adress">
+                <div class="fields">
+                    <select name="" id="">
+                        <option value="1">г. Киев, ул. Беретти, д. 10, кв. 24</option>
+                    </select>
+                </div>
+              
+                <button type="submit">Обновить</button>
+            </form>
+            
+            <form action="" class="form">
+                <div class="fields">
+                    <div>
+                        <label for="">Город</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Улица</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Дом</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Квартира</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                </div>
+                
+                <button type="submit">Обновить</button>
+            </form>
+        </li>
+        <a href="">Изменить пароль</a>
+    </ul>
+</div>
+{% endblock %}

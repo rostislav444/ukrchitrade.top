@@ -1,0 +1,23 @@
+{% if request.user.is_authenticated %}
+44
+    {% with products=request.user.products.all %}
+        {% if products|length %}
+            <div class="wishlist_products">
+                {% for product in request.user.products.all %}
+                    {% include 'shop/additions/whishlist/wishlist__product.html' %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Пока вы ничего не добавили в список желаний</p>
+        {% endif %}
+    {% endwith %}
+{% else %}
+55
+<div class="auth_message">
+    <p class="text">Необходимо авторизоваться для того чтоб добавлять в список желаний</p>
+    <a class="btn-md login" href="">Вход в личный кабинет</a>
+    <a class="btn-md register" href="">Еще не зарегестрированы?</a>
+</div>
+
+
+{% endif %}

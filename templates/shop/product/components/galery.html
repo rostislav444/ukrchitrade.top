@@ -1,0 +1,38 @@
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+  <div class="galery">
+    <div class="slider-wrapper">
+        <div class="swiper-container galery_slider">
+          {% if product.get_discount > 0 %}<div class="product__price__discount">-{{ product.get_discount }}%</div>{% endif %}
+          <div class="swiper-wrapper">
+              {% for image in product.images.all %}
+                  <figure class="product-slide swiper-slide slide" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <a href="{{ image.image_thmb.l.path }}" itemprop="contentUrl" data-size="{{ image.image_thmb.l.w }}x{{ image.image_thmb.l.h }}">
+                      <img class="lazy" src="{{ image.image_thmb.s.path }}" data-src="{{ image.image_thmb.l.url }}" itemprop="thumbnail" alt="Image description" />
+                    </a>
+                  </figure>
+              {% endfor %}
+          </div>
+          <img src="{% static 'img/icons/arrow-white-left.png' %}"  alt="<" class="ico ico_m navigation-button prev galery_prev">
+          <img src="{% static 'img/icons/arrow-white-right.png' %}" alt=">" class="ico ico_m navigation-button next galery_next">
+        </div>
+
+    </div>
+
+
+    <!-- THUMBNAILS -->
+    <div class="thumbnails">
+     
+      {% for image in product.images.all %}
+  
+          <div class="thumb" style="background-image: url({{ image.image_thmb.l.path }});"></div>
+       
+      {% endfor %}
+    </div>
+   
+  </div>
+
+{% endblock %}
+

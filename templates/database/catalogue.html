@@ -1,0 +1,306 @@
+{% extends 'database/base.html' %} {% load i18n %} {% load static %}
+<!-- Title -->
+{% block title %}Катлог продукции{% endblock %}
+<!-- Links -->
+{% block links %} {% endblock %}
+<!-- HTML -->
+{% block content %}
+
+
+<!-- Actions -->
+<div class="content">
+    <div class="nav-block">
+
+        <div>
+
+            <a class="btn bg-silver cl3 cl-s-12" href="/admin/catalogue/product/">{% trans 'Редактировать товары' %}</a>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="actoins">
+
+            <button type="button" class="btn btn-danger white" data-display="grid" onclick="SimpleOpen('invoice__popup')">
+            <span>{% trans 'Инвойс' %}</span>
+          </button>
+
+
+            <select class="custom-select" id="price_formula" {% if size %}data-whoosale="{{ size }}" {% endif %}>
+            {% for item in formulas %}
+              <option value="{{ item.pk }}" >{{ item.formula }}</option>
+            {% endfor %}
+          </select>
+
+            <!-- <select class="custom-select none" id="price_formula" {% if size %}data-whoosale="{{ size }}"{% endif %}>
+                <option value="{{ formulas.0.pk }}" >{{ formulas.0.formula }}</option>
+            </select>
+            <button type="button" class="btn btn-danger white" data-display="grid" >
+              <span>{% trans 'Офрмить заказ' %}</span>
+            </button> -->
+
+
+            <button id="excel_load" type="button" class="btn excel">
+            <img class="mr8" width="24" height="24" src="{% static 'img/ext/xls.png' %}" alt="">
+            <span>{% trans 'Загруить'  %} .xlsx</span>
+          </button>
+
+            <button id="zip_load" type="button" class="btn zip">
+            <img class="mr8" width="24" height="24" src="{% static 'img/ext/zip.png' %}" alt="">
+            <span>{% trans 'Загруить'  %} .zip</span>
+          </button>
+        </div>
+    </div>
+</div>
+
+<!-- SELECTED PRODUCTS -->
+<div class="content">
+    <div class="selected-products pb24 ">
+        <!-- <p class="h2 upper title pb8">{% trans 'Выбранные товары'  %}</p> -->
+        <ul id='selected-products'></ul>
+    </div>
+</div>
+
+
+
+
+<div class="content category_wrapper">
+
+    <div class="popup__outer" id="popup_category_description">
+        <div class="popup__conteiner">
+            <span class="close" onclick="Close('popup_category_description')">
+              <img src="{% static 'img/close.png' %}" alt="x">
+          </span>
+            <div class="popup__wrapper category_description_outer container">
+                <div class="category_description pb24 ">123123123</div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="filters">
+        <!-- Filter -->
+        <div class="title_div">
+            <p class="bold">Категории </p>
+            <div class="category_info" onclick="SimpleOpen('popup_category_description')">
+                i
+                <span class="tooltiptext h6 medium">Информация о категории</span>
+            </div>
+        </div>
+
+        <div class="filter-buttons pb16">
+            <!-- NULL CATEGORIES -->
+            <label class="category-label" for="category-0">
+              <input class="query category-checkbox" type="radio" name="category" id="category-0" data-group="categories" data-id="">
+              <div class="category-check category-check-0 mr8 mt12">{% trans 'Все'  %}</div>
+            </label>
+            <!-- ALL CATEGORIES -->
+            {% for category in categories %}
+
+            <label class="category-label" for="category-{{ category.pk }}">
+              <input class="query category-checkbox" type="radio" name="category" id="category-{{ category.pk }}" data-group="categories" data-id="{{ category.pk }}">
+              <div class="category-check mr8 mt12">{{ category.translate.name|title }}</div>
+            </label> {% endfor %}
+        </div>
+        <div class="atributes">
+            {% include 'database/table/tpl/atributes.html' %}
+        </div>
+    </div>
+
+</div>
+
+
+<div class="table-outer pb24">
+    {% include 'database/table/table.html' %}
+</div>
+</div>
+
+{% include "database/table/tpl/tpl_category.html" %} 
+{% include "database/table/tpl/tpl_atributes.html" %} 
+{% include "database/table/tpl/tpl_table_row.html" %} 
+{% include 'database/invoice/tpl/invoice_product.html' %} 
+
+{% endblock %}
+<!-- JS -->
+{% block js %}
+<script src="{% static 'js/Invoice/invoice.js' %}"></script>
+<script src="{% static 'js/Catalogue/catalogue.js' %}"></script>
+<script>
+    const baselUrl = '{{ request.path }}'
+    const excelUrl = "{% url 'catalogue:export_excel' %}"
+        // <!-- Excel -->
+    var excelButton = document.getElementById('excel_load')
+    var priceFormula = document.getElementById('price_formula')
+
+
+    excelButton.addEventListener('click', function(event) {
+        let params = {}
+        let productslist = Checked()
+        let formula = priceFormula.querySelector('option:checked').value
+        let whoosale = priceFormula.dataset.whoosale
+
+
+        params['price'] = formula
+        if (whoosale != undefined) {
+            params['whoosale'] = whoosale
+        }
+        if (productslist.length > 0) {
+            params['products'] = productslist.join(',')
+        }
+
+
+        let url = excelUrl + '?'
+        let i = 1
+        for (const key in params) {
+            url += key + '=' + params[key]
+            if (i < Object.keys(params).length) {
+                url += '&'
+            }
+            i++
+        }
+
+
+        alert(url)
+        window.location.href = url;
+    })
+
+    // <!-- Zip -->
+    var zipButton = document.getElementById('zip_load')
+
+    function getZip() {
+        let url = '{% url "catalogue:products_zip" %}'
+        let productslist = Checked()
+        if (productslist.length > 0) {
+            url = url + productslist.join('-')
+        }
+        window.location.href = url;
+    }
+    zipButton.addEventListener('click', function() {
+        getZip()
+    })
+    var productQty = document.querySelectorAll(".product_qty")
+    var invoiceProducts = document.getElementById('invoice_products')
+
+
+
+
+    function SelectedProductsUpdate(product) {
+        let selectedProducts = document.getElementById('selected-products')
+        let id = product.dataset.id
+
+        let tpl = nunjucks.renderString(document.getElementById('invoice_product_tpl').innerHTML, {
+            'product': {
+                id: product.dataset.id,
+                image: product.dataset.image,
+                code: product.dataset.code,
+                name: product.dataset.name,
+                pieces_in_box: product.dataset.pieces_in_box,
+                quantity: product.value,
+                parent_id: product.id,
+            }
+        });
+
+        let items = selectedProducts.querySelectorAll('li')
+        let item = selectedProducts.querySelector('li[data-id="' + id + '"]')
+
+        if (item == undefined) {
+            selectedProducts.innerHTML += tpl
+        } else {
+            item.outerHTML = tpl
+        }
+
+        document.getElementById('invoice_products').innerHTML = selectedProducts.innerHTML
+        InvoiceReInit()
+    }
+
+
+
+    function ProductTableQuantityChange() {
+        productQty = document.querySelectorAll(".product_qty")
+        for (let i = 0; i < productQty.length; i++) {
+            let product = productQty[i];
+            product.addEventListener('change', function() {
+                SelectedProductsUpdate(product)
+
+            })
+        }
+    }
+
+
+
+    // UPDATE TABLE
+    function UpdateTable() {
+        let url = baselUrl + GetQueryParams()
+        console.log(url);
+
+        let responese = XHR('POST', url);
+
+
+        responese = JSON.parse(responese)
+        let tpl = ''
+            // CATEGORY UPDATE
+        let categoryData = document.querySelector('.category_description')
+        if (categoryData != null) {
+            tpl = nunjucks.renderString(document.getElementById('category_description').innerHTML, {
+                category: responese['category']
+            });
+            categoryData.innerHTML = tpl
+        }
+
+
+        // ATRIBUTES UPDATE
+        tpl = nunjucks.renderString(document.getElementById('tpl_atributes').innerHTML, {
+            attributes: responese['attributes']
+        });
+        let atributesList = document.querySelector('.atributes')
+        atributesList.innerHTML = tpl
+        console.log(responese['products']);
+
+        // TABLE UPDATE
+        tpl = nunjucks.renderString(document.getElementById('tpl_table_rwo').innerHTML, {
+            products: responese['products']
+        });
+        let tBody = document.getElementById('table_body')
+        tBody.innerHTML = tpl
+
+        ProductTableQuantityChange()
+        QueryListener()
+    }
+
+
+    var queryCheckBox = document.querySelectorAll('input.query')
+
+    // GET QUERY PARAMS
+    function GetQueryParams() {
+        let params = {}
+        for (let i = 0; i < queryCheckBox.length; i++) {
+            let query = queryCheckBox[i];
+            if (query.checked) {
+                let group = query.dataset.group
+                if (params[group] == undefined) {
+                    params[group] = []
+                }
+                params[group].push(query.dataset.id)
+            }
+        }
+
+        let url = []
+        for (var key in params) {
+            let val = key + '=' + params[key].join(',')
+            url.push(val)
+        }
+        return '?' + url.join('&')
+    }
+
+    function QueryListener() {
+        queryCheckBox = document.querySelectorAll('input.query')
+        for (let i = 0; i < queryCheckBox.length; i++) {
+            let query = queryCheckBox[i];
+            query.onclick = () => UpdateTable()
+        }
+    }
+    QueryListener()
+
+    UpdateTable()
+</script>
+{% endblock %}

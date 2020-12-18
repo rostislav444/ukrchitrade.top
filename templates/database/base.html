@@ -1,0 +1,80 @@
+{% load i18n %}{% load static %}<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap/css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap/css/bootstrap-reboot.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-datepicker/css/bootstrap-datepicker.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'lib/datatables/datatables.min.css' %}">
+
+    <!-- Styles -->
+    {% block links %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/database/main/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/main/margin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/main/padding.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/main/colors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/main/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/main/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/main/elements/elements__popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/database/invoice.css' %}">
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="{% static 'lib/jquery/jquery-3.5.0.js' %}"></script>
+    <script src="{% static 'lib/datatables/datatables.min.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Hader -->
+    <header>
+        <!-- Whosale types -->
+        <div class="content whoosale_nav pt24 pb24">
+            <a class="btn bg-color-red" href="/">Home</a>
+            <a class="btn" href="{% url 'catalogue:whoosale' 'small' %}">{% trans 'Мелкий опт' %}</a>
+            <a class="btn" href="{% url 'catalogue:whoosale' 'middle' %}">{% trans 'Средний опт' %}</a>
+            <a class="btn" href="{% url 'catalogue:whoosale' 'big' %}">{% trans 'Крупный опт' %}</a>
+        </div>
+
+
+    </header>
+    <!-- Main -->
+    <script src="{% static 'js/xhr.js' %}"></script>
+    <script src="{% static 'lib/nunjuncks/nunjucks.js' %}"></script>
+    <main class="">
+        {% block content %} {% endblock %}
+    </main>
+
+    {% include 'database/invoice/form.html' %}
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+    <!-- partial -->
+    <script src="{% static 'js/open__close.js' %}"></script>
+
+    <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+
+
+    <script>
+        const cartUrlUpdate = "{% url 'documents:cart-add-update' %}"
+        const cartUrlRemove = "{% url 'documents:cart-delete' %}"
+        const cartUrlClear = "{% url 'documents:cart-clear' %}"
+    </script>
+
+
+    {% block js %} {% endblock %}
+</body>
+
+</html>

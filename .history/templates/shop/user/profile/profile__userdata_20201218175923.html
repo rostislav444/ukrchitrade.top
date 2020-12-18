@@ -1,0 +1,148 @@
+{% extends './profile.html' %}
+{% load static %}
+{% block profile %}
+<div class="personal__info">
+    <p class="title1">Личные данные</p>
+    <ul>
+        <li class="block user__personal-info">
+            <div class="heading">
+                <p class="title2">Личные данные</p>
+                <label for="user__personal-info_edit">
+                    <img src="{% static 'img/icons/edit.png' %}" alt="">
+                    <span>Редактировать</span>
+                </label>
+            </div>
+            <input class="edit" type="checkbox" id="user__personal-info_edit">
+            <form action="" class="form">
+                <div class="fields">
+                    <div>
+                        <label for="">Фамилия</label>
+                        <p>
+                            <span>{{ user.surname }}</span>
+                            <input type="text" value="{{ user.surname }}">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Имя</label>
+                        <p>
+                            <input type="text" value="{{ user.name }}"">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Отчество</label>
+                        <p>
+                            <input type="text" value="{{ user.patronymic }}">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Дата рождения</label>
+                        <p>
+                            <input type="date" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Пол</label>
+                        <p>
+                            <select name="language" id="">
+                                <option value="male">М</option>
+                                <option value="female">Ж</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Язык на сайте</label>
+                        <p>
+                            <select name="language" id="">
+                                <option value="ru">RU</option>
+                                <option value="ru">UA</option>
+                                <option value="ru">EN</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                <button type="submit">Обновить</button>
+            </form>
+        </li>
+        <li class="block user__contacts">
+            <div class="heading">
+                <p class="title2">Контакты</p>
+                <label for="user__contacts_edit">
+                    <img src="{% static 'img/icons/edit.png' %}" alt="">
+                    <span>Редактировать</span>
+                </label>
+            </div>
+            <input class="edit" type="checkbox" id="user__contacts_edit">
+            <form action="" class="form">
+                <div class="fields">
+                    <div>
+                        <label for="">Номер телефона</label>
+                        <p>
+                            <input type="text" value="{{ user.phone }}">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Электронная почта</label>
+                        <p>
+                            <input type="text" value="{{ user.email }}"">
+                        </p>
+                    </div>
+                </div>
+               
+                <button type="submit">Обновить</button>
+            </form>
+                
+        </li>
+        <li class="block delivery_adress">
+            <div class="heading">
+                <p class="title2">Адреса доставки</p>
+                <label for="user__adress_edit">
+                    <img src="{% static 'img/icons/edit.png' %}" alt="">
+                    <span>Редактировать</span>
+                </label>
+            </div>
+            <input class="edit" type="checkbox" id="user__adress_edit">
+            <form action="" class="form select_adress">
+                <div class="fields">
+                    <select name="" id="">
+                        <option value="1">г. Киев, ул. Беретти, д. 10, кв. 24</option>
+                    </select>
+                </div>
+              
+                <button type="submit">Обновить</button>
+            </form>
+            
+            <form action="" class="form">
+                <div class="fields">
+                    <div>
+                        <label for="">Город</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Улица</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Дом</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                    <div>
+                        <label for="">Квартира</label>
+                        <p>
+                            <input type="text" value="">
+                        </p>
+                    </div>
+                </div>
+                
+                <button type="submit">Обновить</button>
+            </form>
+        </li>
+        <a href="">Изменить пароль</a>
+    </ul>
+</div>
+{% endblock %}

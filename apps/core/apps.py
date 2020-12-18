@@ -83,13 +83,6 @@ def create_model(name,parent_model_name=None,fields=None,inherit=models.Model,ap
         setattr(admin_model_inline, 'readonly_fields', readonly_fields)
         setattr(admin_model_inline, 'fields', fields)
 
-
-
-
-
-        
-
-
         if admin_parent != None:
             if len(admin_parent.inlines) == 0:
                 admin_parent.inlines = []

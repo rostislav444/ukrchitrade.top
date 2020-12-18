@@ -1,0 +1,25 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.25;
+    font-weight: 500;
+}
+
+.content {
+    position: relative;
+    display: block;
+    width: calc(100% - 64px);
+    height: auto;
+    left: auto;
+    right: auto;
+    margin: 0 auto;
+    max-width: 1640px;
+}
+
+.watchlist_wrapper {
+    position: relative;
+    height: auto;
+    display: none;
+    overflow: hidden;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}

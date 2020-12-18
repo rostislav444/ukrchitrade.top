@@ -3,3 +3,4 @@ from .models__messages import *
 from .models__translation import *
 from .models__abstract import *
 from .models__base import *
+from .models__file import *

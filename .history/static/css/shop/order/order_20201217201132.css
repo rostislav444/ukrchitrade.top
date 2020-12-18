@@ -1,0 +1,90 @@
+ul.products__list li {
+    position: relative;
+    width: calc(100% - 32px);
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    background-color: var(--grey-light);
+    border-radius: 16px;
+    padding: 16px;
+}
+ul.products__list li .close {
+    background-color: white;
+    border-width: 8px;
+    top: -16px;
+    left: -16px;
+}
+ul.products__list li .image_wrapper {
+    position: relative;
+    display: block;
+    margin-right: 16px;
+    width: 120px;
+   
+}
+ul.products__list li .image_wrapper .image {
+    position: relative;
+    display: block;
+    padding-top: 100%;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+     top: -16px;
+    left: -16px;
+}
+ul.products__list li .image_wrapper .image .remove {
+    top: -12px;
+    left: -12px;
+}
+ul.products__list li .data {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+}
+ul.products__list li .data > p {
+    padding-top: 14px;
+}
+ul.products__list li .data .name {
+    font-size: var(--h5);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+ul.products__list li .data .counter {
+    width: 108px;
+    display: flex;
+    border-radius: 24px;
+    height: 48px;
+    margin-bottom: 0px;
+    background-color: white;
+    box-shadow: inset 0px 0px 0px 4px white;
+}
+ul.products__list li .data .counter input,
+ul.products__list li .data .counter button {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+ul.products__list li .data .counter input {
+    width: 40px;
+    border: none;
+}
+
+
+ul.products__list li .data .quantity {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 12px;
+}
+ul.products__list li .data .quantity .price {
+   margin-left: 16px;
+}
+ul.products__list li .total {
+    /* font-weight: 700; */
+    color: var(--clr-2);
+}

@@ -22,6 +22,7 @@ et-xmlfile==1.0.1
 ffmpeg-python==0.2.0
 future==0.18.2
 googletrans==2.4.0
+gunicorn==20.0.4
 idna==2.9
 jdcal==1.4.1
 Jinja2==2.11.2
@@ -39,7 +40,9 @@ pathlib==1.0.1
 pdf2image==1.12.1
 Pillow==7.1.1
 preview-generator==0.12
+psycopg2-binary==2.8.5
 pycparser==2.20
+pyexif==0.5.0
 pyexifinfo==0.4.0
 pyparsing==2.4.7
 PyPDF2==1.26.0
@@ -57,5 +60,6 @@ Unidecode==1.1.1
 urllib3==1.25.8
 Wand==0.5.9
 webencodings==0.5.1
+whitenoise==5.0.1
 XlsxWriter==1.2.8
 xvfbwrapper==0.2.9

@@ -1,0 +1,85 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop/user/profile/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="breadcrumbs">
+            <a href="/">
+                <img src="{% static 'img/icons/home.png' %}" alt="home-page">
+            </a>
+            <span class="slash">/</span>
+            <p>Кабинет пользователя</p>
+        </div>    
+    </div>
+    <div class="content">
+        <div class="profile">
+        <div>
+            <ul class="navigation">
+                <a href="">
+                  <li>
+                      <img src="{% static 'img/icons/user.png' %}" alt="*">
+                      <p>
+                          <span>Личная информация</span>
+                          <span class="email">{{ request.user.email }}</span>
+                      </p>
+                    </li>
+                </a>
+                <a href="">
+                  <li>
+                      <img src="{% static 'img/icons/user.png' %}" alt="*">
+                      <p>Мои заказы</p>
+                    </li>
+                </a>
+                <a href="">
+                  <li>
+                      <img src="{% static 'img/icons/user.png' %}" alt="*">
+                      <p>Подписка на рассылку</p>
+                    </li>
+                </a>
+                <a href="">
+                  <li>
+                      <img src="{% static 'img/icons/user.png' %}" alt="*">
+                      <p>Список желаний</p>
+                    </li>
+                </a>
+                <a href="">
+                  <li>
+                      <img src="{% static 'img/icons/user.png' %}" alt="*">
+                      <p>Информация о юр. лице</p>
+                    </li>
+                </a>
+                <a href="">
+                  <li>
+                      <img src="{% static 'img/icons/user.png' %}" alt="*">
+                      <p>Мои отзывы</p>
+                    </li>
+                </a>
+               
+  
+            </ul>
+        </div>
+          
+          <div class="data profile_data">
+                {% with user=request.user %}
+                    {% block profile %}{% endblock %}
+                {% endwith %}
+          </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
+
+{% block js %}
+<script>
+    const profileData = document.querySelector('.profile_data') 
+    var profileDataInputs = profileData.querySelectorAll('input, select')
+    for (let input of profileDataInputs) {
+        
+    }
+</script>
+{% endblock %}

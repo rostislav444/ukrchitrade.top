@@ -1,0 +1,35 @@
+{% load static %}
+<div class="page page_comments product_data_block_3">
+    <div class="reviews">
+        <p class="title1">Отзывы наших клиентов</p>
+        {% include 'shop/product/components/comments__list.html' %}
+    </div>
+
+    <div class="add_review">
+        <p class="title1">Есть что рассказать о товаре?</p>
+        {% if user.is_authenticated %}
+            <form action="{% url 'shop:comment_form' product.category.slug product.slug product.pk 'comment_form' %}" method="POST" class="form">
+                {% csrf_token %}
+                <select name="rate" id="" required>
+                    <option value="5" selected>Супер</option>
+                    <option value="4">Хорошо</option>
+                    <option value="3">Нормально</option>
+                    <option value="2">Плохо</option>
+                    <option value="1">Ужасно</option>
+                </select>
+                <input type="text" name="advantages"    placeholder="Преимущества">
+                <input type="text" name="disadvantages" placeholder="Недостатки">
+                <textarea name="text" id="" cols="30" rows="10" placeholder="Ваш отзыв *" required></textarea>
+                <button type="submit">Отправить комментарий</button>
+            </form>
+        {% else %}
+        <div class="auth_message">
+            <p class="text">Необходимо авторизоваться для того чтоб добавлять оставить комментарий</p>
+            <a class="btn-md login" href="">Вход в личный кабинет</a>
+            <a class="btn-md register" href="">Еще не зарегестрированы?</a>
+        </div>
+        {% endif %}
+    </div>
+    
+    
+</div>

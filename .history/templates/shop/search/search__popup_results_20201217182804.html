@@ -1,0 +1,18 @@
+<ul class="products">
+    {% for product in products %}
+    <a href="{{ product.get_absolute_url }}">
+        <li>
+            <div href="" class="image">
+                <img src="{{ product.image }}" alt="">
+            </div>
+            <div class="data">
+                <p class="name">{{ product.name }} ({{ product.code }})</p>
+                <p class="price">{{ product.price }} грн.</p>
+            </div>
+        </li>
+    </a>
+    {% endfor %}
+</ul>
+{% if categories %}
+<ul class="categories"></ul>
+{% endif %}

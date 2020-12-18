@@ -1,0 +1,37 @@
+
+<div class="block price {% if min_price == max_price %}deactivated{% endif %}">
+    <div class="title">Цена</div>
+    <div class="data">
+        {% include 'shop/catalogue/catalogue__pricerange.html' %}
+    </div>
+</div>
+
+{% for attr in attributes %}
+    <div class="block">
+        <div class="title">{{ attr.name }}</div>
+        <div class="data">
+            {% for value in attr.values %}
+                    <li>
+                        <label class="ml8" for="attr-{{ value.pk }}">
+                            <input 
+                                type="checkbox" 
+                                class="filter-param" 
+                                id="attr-{{ value.pk }}"
+                                data-group="{{ attr.slug }}"  
+                                data-value="{{ value.slug }}" 
+                                {% if value.selected %}
+                                    checked=true
+                                {% endif %}
+                            >
+                            <span class="checkbox"></span>
+                            <p>
+                                <span>{{ value.name }} </span>
+                                <span class="qty filterd">{% if value.count.filterd > 0 %}({{ value.count.filterd }}){% endif %}</span> 
+                                <span class="qty extra">{% if value.count.extra > 0 %}+{{ value.count.extra }}{% endif %}</span> 
+                            </p>
+                        </label>
+                    </li>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}

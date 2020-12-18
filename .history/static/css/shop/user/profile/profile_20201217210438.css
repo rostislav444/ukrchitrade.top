@@ -1,0 +1,11 @@
+.profile {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    grid-gap: 48px;
+}
+.profile .navigation {
+    position: relative;
+    background-color: var(--clr-25);
+    border-radius: 16px;
+    padding: 16px;
+}
