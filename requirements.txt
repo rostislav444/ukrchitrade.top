@@ -45,7 +45,7 @@ pycparser==2.20
 pyexif==0.5.0
 pyexifinfo==0.4.0
 pyparsing==2.4.7
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 python-docx==0.8.10
 python-magic==0.4.15
 pytz==2019.3
